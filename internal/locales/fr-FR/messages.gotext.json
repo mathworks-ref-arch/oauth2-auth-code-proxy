@@ -1,0 +1,275 @@
+{
+    "language": "fr-FR",
+    "messages": [
+        {
+            "id": "OAuth2 Token Proxy (v{Ver})",
+            "message": "OAuth2 Token Proxy (v{Ver})",
+            "translation": "Proxy de jetons OAuth2 (v{Ver})",
+            "placeholders": [
+                {
+                    "id": "Ver",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "version"
+                }
+            ]
+        },
+        {
+            "id": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
+            "message": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
+            "translation": "Proxy d'échange de jetons OAuth2 pour les clients de bureau. Gère le flux\nd'autorisation OAuth2 côté serveur avec PKCE afin que les applications de\nbureau puissent s'authentifier auprès de fournisseurs cloud tiers sans\nintégrer de secrets client."
+        },
+        {
+            "id": "Usage:",
+            "message": "Usage:",
+            "translation": "Utilisation :"
+        },
+        {
+            "id": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
+            "message": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
+            "translation": "oauth2-auth-code-proxy --config <creds.yaml> [options]"
+        },
+        {
+            "id": "Options:",
+            "message": "Options:",
+            "translation": "Options :"
+        },
+        {
+            "id": "--config <path>              Credentials YAML file (required)",
+            "message": "--config <path>              Credentials YAML file (required)",
+            "translation": "--config <chemin>            Fichier YAML des identifiants (requis)"
+        },
+        {
+            "id": "--port <port>                REST API listen port (default: 80)",
+            "message": "--port <port>                REST API listen port (default: 80)",
+            "translation": "--port <port>                Port d'écoute API REST (défaut : 80)"
+        },
+        {
+            "id": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
+            "message": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
+            "translation": "--mwlegacy-port <port>       Port d'écoute API legacy (défaut : 30045)"
+        },
+        {
+            "id": "--mwlegacy-enabled=false     Disable legacy API listener",
+            "message": "--mwlegacy-enabled=false     Disable legacy API listener",
+            "translation": "--mwlegacy-enabled=false     Désactiver l'écouteur API legacy"
+        },
+        {
+            "id": "--tls-cert <path>            TLS certificate for HTTPS serving",
+            "message": "--tls-cert <path>            TLS certificate for HTTPS serving",
+            "translation": "--tls-cert <chemin>          Certificat TLS pour le service HTTPS"
+        },
+        {
+            "id": "--tls-key <path>             TLS private key for HTTPS serving",
+            "message": "--tls-key <path>             TLS private key for HTTPS serving",
+            "translation": "--tls-key <chemin>           Clé privée TLS pour le service HTTPS"
+        },
+        {
+            "id": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
+            "message": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
+            "translation": "--tls-insecure-skip-verify   Ignorer la vérification TLS sur les appels sortants"
+        },
+        {
+            "id": "Environment Variables:",
+            "message": "Environment Variables:",
+            "translation": "Variables d'environnement :"
+        },
+        {
+            "id": "OAUTH_CREDS_FILE             Credentials YAML file path",
+            "message": "OAUTH_CREDS_FILE             Credentials YAML file path",
+            "translation": "OAUTH_CREDS_FILE             Chemin du fichier YAML des identifiants"
+        },
+        {
+            "id": "OAUTH_PORT                   REST API port (default: 80)",
+            "message": "OAUTH_PORT                   REST API port (default: 80)",
+            "translation": "OAUTH_PORT                   Port API REST (défaut : 80)"
+        },
+        {
+            "id": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
+            "message": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
+            "translation": "OAUTH_MWLEGACY_PORT          Port API legacy (défaut : 30045)"
+        },
+        {
+            "id": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
+            "message": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
+            "translation": "OAUTH_MWLEGACY_ENABLED       Mettre à false pour désactiver l'API legacy"
+        },
+        {
+            "id": "OAUTH_TLS_CERT_FILE          TLS certificate path",
+            "message": "OAUTH_TLS_CERT_FILE          TLS certificate path",
+            "translation": "OAUTH_TLS_CERT_FILE          Chemin du certificat TLS"
+        },
+        {
+            "id": "OAUTH_TLS_KEY_FILE           TLS private key path",
+            "message": "OAUTH_TLS_KEY_FILE           TLS private key path",
+            "translation": "OAUTH_TLS_KEY_FILE           Chemin de la clé privée TLS"
+        },
+        {
+            "id": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
+            "message": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
+            "translation": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Mettre à true pour ignorer la vérification TLS sortante"
+        },
+        {
+            "id": "LANG                         Locale for help output (en-US, fr-FR)",
+            "message": "LANG                         Locale for help output (en-US, fr-FR)",
+            "translation": "LANG                         Langue de l'aide (en-US, fr-FR)"
+        },
+        {
+            "id": "--legacy                     Show legacy configuration options",
+            "message": "--legacy                     Show legacy configuration options",
+            "translation": "--legacy                     Afficher les options de configuration legacy"
+        },
+        {
+            "id": "The legacy API listener is enabled by default on port 30045.",
+            "message": "The legacy API listener is enabled by default on port 30045.",
+            "translation": "L'écouteur API legacy est activé par défaut sur le port 30045."
+        },
+        {
+            "id": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
+            "message": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
+            "translation": "Utilisez --mwlegacy-enabled=false pour désactiver, ou --legacy pour les options legacy."
+        },
+        {
+            "id": "Legacy Settings (--set):",
+            "message": "Legacy Settings (--set):",
+            "translation": "Paramètres legacy (--set) :"
+        },
+        {
+            "id": "Settings prefixed with oas. or mito. are deprecated but supported",
+            "message": "Settings prefixed with oas. or mito. are deprecated but supported",
+            "translation": "Les paramètres préfixés par oas. ou mito. sont obsolètes mais supportés"
+        },
+        {
+            "id": "for backward compatibility.",
+            "message": "for backward compatibility.",
+            "translation": "pour la rétrocompatibilité."
+        },
+        {
+            "id": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
+            "message": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
+            "translation": "--set oas.port=<port>                       Port API legacy (utiliser --mwlegacy-port)"
+        },
+        {
+            "id": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
+            "message": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
+            "translation": "--set oas.credSetupFile=<chemin>             Fichier identifiants (utiliser --config)"
+        },
+        {
+            "id": "--set oas.appFile=<path>                     App config file (deprecated)",
+            "message": "--set oas.appFile=<path>                     App config file (deprecated)",
+            "translation": "--set oas.appFile=<chemin>                   Fichier config app (obsolète)"
+        },
+        {
+            "id": "--set mito.http.tls.certificatepath=<path>   TLS cert (use --tls-cert)",
+            "message": "--set mito.http.tls.certificatepath=<path>   TLS cert (use --tls-cert)",
+            "translation": "--set mito.http.tls.certificatepath=<chemin> Cert TLS (utiliser --tls-cert)"
+        },
+        {
+            "id": "--set mito.http.tls.privatekeypath=<path>    TLS key (use --tls-key)",
+            "message": "--set mito.http.tls.privatekeypath=<path>    TLS key (use --tls-key)",
+            "translation": "--set mito.http.tls.privatekeypath=<chemin>  Clé TLS (utiliser --tls-key)"
+        },
+        {
+            "id": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
+            "message": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
+            "translation": "--set mito.http.tls.enabled=false            Désactiver TLS même si certs présents"
+        },
+        {
+            "id": "Legacy Environment Variables:",
+            "message": "Legacy Environment Variables:",
+            "translation": "Variables d'environnement legacy :"
+        },
+        {
+            "id": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
+            "message": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
+            "translation": "MW_PORT                      Port API legacy (utiliser OAUTH_MWLEGACY_PORT)"
+        },
+        {
+            "id": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
+            "message": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
+            "translation": "MW_CREDSETUPFILE             Fichier identifiants (utiliser OAUTH_CREDS_FILE)"
+        },
+        {
+            "id": "MW_APPFILE                   App config file (deprecated)",
+            "message": "MW_APPFILE                   App config file (deprecated)",
+            "translation": "MW_APPFILE                   Fichier config app (obsolète)"
+        },
+        {
+            "id": "Examples:",
+            "message": "Examples:",
+            "translation": "Exemples :"
+        },
+        {
+            "id": "# Docker with mounted credentials",
+            "message": "# Docker with mounted credentials",
+            "translation": "# Docker avec identifiants montés"
+        },
+        {
+            "id": "docker run -p 80:80 -p 30045:30045 \\",
+            "message": "docker run -p 80:80 -p 30045:30045 \\",
+            "translation": "docker run -p 80:80 -p 30045:30045 \\"
+        },
+        {
+            "id": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
+            "message": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
+            "translation": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\"
+        },
+        {
+            "id": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
+            "message": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
+            "translation": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\"
+        },
+        {
+            "id": "oauth2-auth-code-proxy:latest",
+            "message": "oauth2-auth-code-proxy:latest",
+            "translation": "oauth2-auth-code-proxy:latest"
+        },
+        {
+            "id": "# Binary with HTTPS",
+            "message": "# Binary with HTTPS",
+            "translation": "# Binaire avec HTTPS"
+        },
+        {
+            "id": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
+            "message": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
+            "translation": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key"
+        },
+        {
+            "id": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
+            "message": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
+            "translation": "Définissez la variable d'environnement LANG pour une sortie localisée (ex : LANG=fr-FR)."
+        },
+        {
+            "id": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
+            "message": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
+            "translation": "Copyright (c) 2020-2026, The MathWorks, Inc. Tous droits réservés."
+        },
+        {
+            "id": "Governed by the MathWorks Cloud Reference Architecture License.",
+            "message": "Governed by the MathWorks Cloud Reference Architecture License.",
+            "translation": "Régi par la licence MathWorks Cloud Reference Architecture."
+        },
+        {
+            "id": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
+            "message": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
+            "translation": "Voir https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md"
+        },
+        {
+            "id": "OAuth2 Redirect",
+            "message": "OAuth2 Redirect",
+            "translation": "Redirection OAuth2"
+        },
+        {
+            "id": "Authentication complete. You may close this tab.",
+            "message": "Authentication complete. You may close this tab.",
+            "translation": "Authentification terminée. Vous pouvez fermer cet onglet."
+        },
+        {
+            "id": "Click here if not redirected automatically.",
+            "message": "Click here if not redirected automatically.",
+            "translation": "Cliquez ici si vous n'êtes pas redirigé automatiquement."
+        }
+    ]
+}

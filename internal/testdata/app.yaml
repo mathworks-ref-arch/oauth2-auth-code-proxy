@@ -1,0 +1,4 @@
+port: "9999"
+credSetupFile: "/from/app/yaml/creds.yaml"
+unknownField: "should be ignored"
+anotherUnknown: 42

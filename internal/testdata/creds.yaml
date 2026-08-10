@@ -1,0 +1,23 @@
+id: "100"
+type: "sheets"
+includeRefreshToken: true
+cloudProvider: "google"
+description: "Read Google Sheets"
+descriptionCode: "google.sheets.read"
+clientId: "fake-client-id-for-testing.apps.googleusercontent.com"
+clientSecret: "fake-client-secret-for-testing"
+redirectUri: "https://localhost:30045/oauth/v1/redirect"
+scopes:
+  - "https://www.googleapis.com/auth/drive.readonly"
+  - "https://www.googleapis.com/auth/spreadsheets.readonly"
+  - "email"
+authUrl: "https://accounts.google.com/o/oauth2/auth"
+tokenUrl: "https://oauth2.googleapis.com/token"
+revokeUrl: "https://oauth2.googleapis.com/revoke"
+host: "sheets.mtls.googleapis.com"
+testingUrl: "https://openidconnect.googleapis.com/v1/userinfo"
+nameKey: "name"
+emailKey: "email"
+idTokenNameKey: "name"
+idTokenEmailKey: "email"
+---

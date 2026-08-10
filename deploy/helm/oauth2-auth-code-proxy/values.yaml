@@ -1,0 +1,80 @@
+image:
+  repository: ghcr.io/mathworks-ref-arch/container-images/oauth2-auth-code-proxy
+  tag: ""  # defaults to appVersion
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 30045  # external port (matches existing OAuth redirect URIs)
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: oauth2-proxy.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 32Mi
+  limits:
+    cpu: 200m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+podAnnotations: {}
+podLabels: {}
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 65534
+  runAsGroup: 65534
+  fsGroup: 65534
+
+containerSecurityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+config:
+  port: "30045"  # container listen port
+  tlsInsecureSkipVerify: false
+
+credentials:
+  existingSecret: ""
+  secretKey: creds.yaml
+  # Inline credentials (not recommended for production — use existingSecret)
+  # inline: |
+  #   id: "100"
+  #   type: "sheets"
+  #   ...
+
+proxy:
+  httpsProxy: ""
+  httpProxy: ""
+  noProxy: ""

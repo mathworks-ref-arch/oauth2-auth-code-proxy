@@ -1,0 +1,641 @@
+{
+    "components": {
+        "schemas": {
+            "admin.AliveResponse": {
+                "properties": {
+                    "artifactId": {
+                        "type": "string"
+                    },
+                    "buildTimestamp": {
+                        "type": "string"
+                    },
+                    "connCheck": {
+                        "items": {
+                            "$ref": "#/components/schemas/admin.URLStatus"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "echo": {
+                        "type": "string"
+                    },
+                    "groupId": {
+                        "type": "string"
+                    },
+                    "proxy": {
+                        "$ref": "#/components/schemas/admin.ProxyConfig"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "admin.ProxyConfig": {
+                "properties": {
+                    "httpProxy": {
+                        "type": "string"
+                    },
+                    "httpsProxy": {
+                        "type": "string"
+                    },
+                    "noProxy": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "admin.URLStatus": {
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/admin.URLStatusMetadata"
+                    },
+                    "times": {
+                        "$ref": "#/components/schemas/admin.URLStatusTimes"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "viaProxy": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "admin.URLStatusMetadata": {
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "lastChecked": {
+                        "type": "string"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "admin.URLStatusTimes": {
+                "properties": {
+                    "dnsLookup": {
+                        "type": "string"
+                    },
+                    "httpResponseTime": {
+                        "type": "string"
+                    },
+                    "ping": {
+                        "type": "string"
+                    },
+                    "tcpConnection": {
+                        "type": "string"
+                    },
+                    "tlsHandshake": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "domain.AppInfo": {
+                "properties": {
+                    "clientId": {
+                        "type": "string"
+                    },
+                    "cloudProvider": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "descriptionCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "includeRefreshToken": {
+                        "type": "boolean"
+                    },
+                    "redirectUri": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "domain.FaultResponse": {
+                "properties": {
+                    "faultId": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "messageId": {
+                        "type": "string"
+                    },
+                    "mwtype": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "mwlegacy.Expiry": {
+                "properties": {
+                    "fmt": {
+                        "type": "string"
+                    },
+                    "milli": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "mwlegacy.InitResponse": {
+                "properties": {
+                    "mwtype": {
+                        "type": "string"
+                    },
+                    "pkce_verifier": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "mwlegacy.ListResponse": {
+                "properties": {
+                    "apps": {
+                        "items": {
+                            "$ref": "#/components/schemas/domain.AppInfo"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "mwtype": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "mwlegacy.RefreshResponse": {
+                "properties": {
+                    "accessToken": {
+                        "type": "string"
+                    },
+                    "expires": {
+                        "$ref": "#/components/schemas/mwlegacy.Expiry"
+                    },
+                    "mwtype": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "mwlegacy.TokenResponse": {
+                "properties": {
+                    "accessToken": {
+                        "type": "string"
+                    },
+                    "expires": {
+                        "$ref": "#/components/schemas/mwlegacy.Expiry"
+                    },
+                    "mwtype": {
+                        "type": "string"
+                    },
+                    "refreshToken": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/mwlegacy.User"
+                    }
+                },
+                "type": "object"
+            },
+            "mwlegacy.User": {
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "v1.AppsResponse": {
+                "properties": {
+                    "apps": {
+                        "items": {
+                            "$ref": "#/components/schemas/domain.AppInfo"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    }
+                },
+                "type": "object"
+            },
+            "v1.AuthorizeRequest": {
+                "properties": {
+                    "app_id": {
+                        "type": "string"
+                    },
+                    "redirect_url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "v1.AuthorizeResponse": {
+                "properties": {
+                    "authorization_url": {
+                        "type": "string"
+                    },
+                    "code_verifier": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "v1.ErrorResponse": {
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    },
+                    "error_description": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "v1.TokenRequestBody": {
+                "properties": {
+                    "app_id": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "code_verifier": {
+                        "type": "string"
+                    },
+                    "grant_type": {
+                        "type": "string"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "scope": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "v1.TokenResponseBody": {
+                "properties": {
+                    "access_token": {
+                        "type": "string"
+                    },
+                    "expires_at": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "type": "integer"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "scope": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                    },
+                    "token_type": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/v1.User"
+                    }
+                },
+                "type": "object"
+            },
+            "v1.User": {
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "info": {
+        "contact": {
+            "name": "MathWorks Technical Support",
+            "url": "https://www.mathworks.com/support/contact_us.html"
+        },
+        "description": "OAuth2 token exchange proxy for MATLAB and MathWorks desktop clients.\nHandles server-side OAuth2 authorization code flow with PKCE so desktop\napplications authenticate with third-party cloud providers without embedding\nclient secrets.",
+        "license": {
+            "name": "MathWorks Cloud Reference Architecture License",
+            "url": "https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md"
+        },
+        "title": "OAuth2 Token Proxy API",
+        "version": "1.0"
+    },
+    "externalDocs": {
+        "description": "",
+        "url": ""
+    },
+    "paths": {
+        "/admin/alive/{echo}": {
+            "get": {
+                "description": "Returns service version, build info, and connectivity diagnostics for all\nconfigured OAuth2 provider endpoints (auth, token, revoke, testing URLs).",
+                "parameters": [
+                    {
+                        "description": "Echo string returned in response",
+                        "in": "path",
+                        "name": "echo",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/admin.AliveResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "summary": "Health check",
+                "tags": [
+                    "admin"
+                ]
+            }
+        },
+        "/api": {
+            "post": {
+                "description": "Single endpoint that dispatches on the \"mwtype\" field in the JSON body.\nSupported types: oauth/InitRequest, oauth/TokenRequest, oauth/RefreshRequest, oauth/ListRequest.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        },
+                        "text/plain": {
+                            "schema": {
+                                "title": "body",
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "JSON envelope with mwtype discriminator",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/mwlegacy.InitResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/mwlegacy.TokenResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/mwlegacy.RefreshResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/mwlegacy.ListResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/domain.FaultResponse"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Fault on invalid input or unknown mwtype"
+                    }
+                },
+                "summary": "Dispatch OAuth2 operation",
+                "tags": [
+                    "oauth"
+                ]
+            }
+        },
+        "/apps": {
+            "get": {
+                "description": "Returns all configured OAuth applications with public fields only (no secrets).",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1.AppsResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "summary": "List configured apps",
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/authorize": {
+            "post": {
+                "description": "Creates an OAuth2 authorization URL with PKCE code challenge for the specified app.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/v1.AuthorizeRequest",
+                                        "summary": "body",
+                                        "description": "Authorization request"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "Authorization request",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1.AuthorizeResponse"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Generate authorization URL",
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/redirect": {
+            "get": {
+                "description": "Receives authorization code and state from the OAuth2 provider,\nthen redirects the browser back to the desktop client's local HTTP listener.",
+                "parameters": [
+                    {
+                        "description": "Authorization code from OAuth2 provider",
+                        "in": "query",
+                        "name": "code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "State containing appID and client redirect URL (format: appID-redirectURL)",
+                        "in": "query",
+                        "name": "state",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/domain.FaultResponse"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Fault on missing or invalid parameters"
+                    }
+                },
+                "summary": "OAuth2 redirect callback",
+                "tags": [
+                    "oauth"
+                ]
+            }
+        },
+        "/token": {
+            "post": {
+                "description": "Exchange an authorization code for tokens (grant_type=authorization_code)\nor refresh an access token (grant_type=refresh_token).",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/v1.TokenRequestBody",
+                                        "summary": "body",
+                                        "description": "Token request"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "description": "Token request",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1.TokenResponseBody"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1.ErrorResponse"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Token exchange",
+                "tags": [
+                    "v1"
+                ]
+            }
+        }
+    },
+    "openapi": "3.1.0"
+}

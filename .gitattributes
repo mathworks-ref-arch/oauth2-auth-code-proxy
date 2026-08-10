@@ -1,0 +1,15 @@
+* text=auto
+*.go text diff=golang
+*.mod text
+*.sum text
+*.yaml text
+*.yml text
+*.md text
+*.html text
+*.json text
+
+Makefile text
+Dockerfile text
+
+*.out binary
+*.exe binary

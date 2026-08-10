@@ -1,0 +1,24 @@
+# Mockery configuration for oauth2-auth-code-proxy
+# https://vektra.github.io/mockery/latest/configuration/
+#
+# Generate mocks: mockery
+
+with-expecter: true
+mockname: "Mock{{.InterfaceName}}"
+filename: "mock_{{.InterfaceName}}_test.go"
+dir: "./internal"
+outpkg: "proxy"
+
+inpackage: true
+exported: true
+
+issue-845-fix: True
+disable-version-string: True
+resolve-type-alias: False
+
+packages:
+  github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/internal:
+    interfaces:
+      OAuthService:
+      HTTPClient:
+      TokenSourcer:

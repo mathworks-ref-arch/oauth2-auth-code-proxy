@@ -1,0 +1,358 @@
+{
+    "language": "en-US",
+    "messages": [
+        {
+            "id": "OAuth2 Token Proxy (v{Ver})",
+            "message": "OAuth2 Token Proxy (v{Ver})",
+            "translation": "OAuth2 Token Proxy (v{Ver})",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Ver",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "ver"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
+            "message": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
+            "translation": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Usage:",
+            "message": "Usage:",
+            "translation": "Usage:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "oauth2-auth-code-proxy --config \u003ccreds.yaml\u003e [options]",
+            "message": "oauth2-auth-code-proxy --config \u003ccreds.yaml\u003e [options]",
+            "translation": "oauth2-auth-code-proxy --config \u003ccreds.yaml\u003e [options]",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Options:",
+            "message": "Options:",
+            "translation": "Options:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--config \u003cpath\u003e              Credentials YAML file (required)",
+            "message": "--config \u003cpath\u003e              Credentials YAML file (required)",
+            "translation": "--config \u003cpath\u003e              Credentials YAML file (required)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--port \u003cport\u003e                REST API listen port (default: 80)",
+            "message": "--port \u003cport\u003e                REST API listen port (default: 80)",
+            "translation": "--port \u003cport\u003e                REST API listen port (default: 80)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--mwlegacy-port \u003cport\u003e       Legacy API listen port (default: 30045)",
+            "message": "--mwlegacy-port \u003cport\u003e       Legacy API listen port (default: 30045)",
+            "translation": "--mwlegacy-port \u003cport\u003e       Legacy API listen port (default: 30045)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--mwlegacy-enabled=false     Disable legacy API listener",
+            "message": "--mwlegacy-enabled=false     Disable legacy API listener",
+            "translation": "--mwlegacy-enabled=false     Disable legacy API listener",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--tls-cert \u003cpath\u003e            TLS certificate for HTTPS serving",
+            "message": "--tls-cert \u003cpath\u003e            TLS certificate for HTTPS serving",
+            "translation": "--tls-cert \u003cpath\u003e            TLS certificate for HTTPS serving",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--tls-key \u003cpath\u003e             TLS private key for HTTPS serving",
+            "message": "--tls-key \u003cpath\u003e             TLS private key for HTTPS serving",
+            "translation": "--tls-key \u003cpath\u003e             TLS private key for HTTPS serving",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
+            "message": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
+            "translation": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--legacy                     Show legacy configuration options",
+            "message": "--legacy                     Show legacy configuration options",
+            "translation": "--legacy                     Show legacy configuration options",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Environment Variables:",
+            "message": "Environment Variables:",
+            "translation": "Environment Variables:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_CREDS_FILE             Credentials YAML file path",
+            "message": "OAUTH_CREDS_FILE             Credentials YAML file path",
+            "translation": "OAUTH_CREDS_FILE             Credentials YAML file path",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_PORT                   REST API port (default: 80)",
+            "message": "OAUTH_PORT                   REST API port (default: 80)",
+            "translation": "OAUTH_PORT                   REST API port (default: 80)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
+            "message": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
+            "translation": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
+            "message": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
+            "translation": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_TLS_CERT_FILE          TLS certificate path",
+            "message": "OAUTH_TLS_CERT_FILE          TLS certificate path",
+            "translation": "OAUTH_TLS_CERT_FILE          TLS certificate path",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_TLS_KEY_FILE           TLS private key path",
+            "message": "OAUTH_TLS_KEY_FILE           TLS private key path",
+            "translation": "OAUTH_TLS_KEY_FILE           TLS private key path",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
+            "message": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
+            "translation": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "LANG                         Locale for help output (en-US, fr-FR)",
+            "message": "LANG                         Locale for help output (en-US, fr-FR)",
+            "translation": "LANG                         Locale for help output (en-US, fr-FR)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The legacy API listener is enabled by default on port 30045.",
+            "message": "The legacy API listener is enabled by default on port 30045.",
+            "translation": "The legacy API listener is enabled by default on port 30045.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
+            "message": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
+            "translation": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Legacy Settings (--set):",
+            "message": "Legacy Settings (--set):",
+            "translation": "Legacy Settings (--set):",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Settings prefixed with oas. or mito. are deprecated but supported",
+            "message": "Settings prefixed with oas. or mito. are deprecated but supported",
+            "translation": "Settings prefixed with oas. or mito. are deprecated but supported",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "for backward compatibility.",
+            "message": "for backward compatibility.",
+            "translation": "for backward compatibility.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--set oas.port=\u003cport\u003e                       Legacy API port (use --mwlegacy-port)",
+            "message": "--set oas.port=\u003cport\u003e                       Legacy API port (use --mwlegacy-port)",
+            "translation": "--set oas.port=\u003cport\u003e                       Legacy API port (use --mwlegacy-port)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--set oas.credSetupFile=\u003cpath\u003e               Credentials file (use --config)",
+            "message": "--set oas.credSetupFile=\u003cpath\u003e               Credentials file (use --config)",
+            "translation": "--set oas.credSetupFile=\u003cpath\u003e               Credentials file (use --config)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--set oas.appFile=\u003cpath\u003e                     App config file (deprecated)",
+            "message": "--set oas.appFile=\u003cpath\u003e                     App config file (deprecated)",
+            "translation": "--set oas.appFile=\u003cpath\u003e                     App config file (deprecated)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--set mito.http.tls.certificatepath=\u003cpath\u003e   TLS cert (use --tls-cert)",
+            "message": "--set mito.http.tls.certificatepath=\u003cpath\u003e   TLS cert (use --tls-cert)",
+            "translation": "--set mito.http.tls.certificatepath=\u003cpath\u003e   TLS cert (use --tls-cert)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--set mito.http.tls.privatekeypath=\u003cpath\u003e    TLS key (use --tls-key)",
+            "message": "--set mito.http.tls.privatekeypath=\u003cpath\u003e    TLS key (use --tls-key)",
+            "translation": "--set mito.http.tls.privatekeypath=\u003cpath\u003e    TLS key (use --tls-key)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
+            "message": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
+            "translation": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Legacy Environment Variables:",
+            "message": "Legacy Environment Variables:",
+            "translation": "Legacy Environment Variables:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
+            "message": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
+            "translation": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
+            "message": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
+            "translation": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "MW_APPFILE                   App config file (deprecated)",
+            "message": "MW_APPFILE                   App config file (deprecated)",
+            "translation": "MW_APPFILE                   App config file (deprecated)",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Examples:",
+            "message": "Examples:",
+            "translation": "Examples:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "# Docker with mounted credentials",
+            "message": "# Docker with mounted credentials",
+            "translation": "# Docker with mounted credentials",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "docker run -p 80:80 -p 30045:30045 \\",
+            "message": "docker run -p 80:80 -p 30045:30045 \\",
+            "translation": "docker run -p 80:80 -p 30045:30045 \\",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
+            "message": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
+            "translation": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
+            "message": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
+            "translation": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "oauth2-auth-code-proxy:latest",
+            "message": "oauth2-auth-code-proxy:latest",
+            "translation": "oauth2-auth-code-proxy:latest",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "# Binary with HTTPS",
+            "message": "# Binary with HTTPS",
+            "translation": "# Binary with HTTPS",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
+            "message": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
+            "translation": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
+            "message": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
+            "translation": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
+            "message": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
+            "translation": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Governed by the MathWorks Cloud Reference Architecture License.",
+            "message": "Governed by the MathWorks Cloud Reference Architecture License.",
+            "translation": "Governed by the MathWorks Cloud Reference Architecture License.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
+            "message": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
+            "translation": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        }
+    ]
+}
