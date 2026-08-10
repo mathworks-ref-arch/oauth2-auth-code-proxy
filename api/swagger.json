@@ -22,6 +22,9 @@
                     "groupId": {
                         "type": "string"
                     },
+                    "mwtype": {
+                        "type": "string"
+                    },
                     "proxy": {
                         "$ref": "#/components/schemas/admin.ProxyConfig"
                     },
