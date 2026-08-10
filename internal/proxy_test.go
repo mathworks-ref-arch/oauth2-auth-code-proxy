@@ -65,16 +65,16 @@ func startConnectProxy(t *testing.T, resolveHost string) (proxyAddr string, conn
 				return
 			}
 
-			w.WriteHeader(http.StatusOK)
 			clientConn, clientBuf, err := hijacker.Hijack()
 			if err != nil {
 				_ = targetConn.Close()
 				return
 			}
+			_, _ = clientBuf.WriteString("HTTP/1.1 200 Connection Established\r\n\r\n")
 			_ = clientBuf.Flush()
 
 			go func() {
-				_, _ = io.Copy(targetConn, clientConn) //nolint:errcheck
+				_, _ = io.Copy(targetConn, clientBuf) //nolint:errcheck
 				_ = targetConn.Close()
 			}()
 			_, _ = io.Copy(clientConn, targetConn) //nolint:errcheck
