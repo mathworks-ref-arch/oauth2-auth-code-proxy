@@ -53,13 +53,13 @@ type helpStrings struct {
 	legacyMwCred   string
 	legacyMwApp    string
 
-	exDocker     string
-	exDockerRun  string
-	exDockerVol  string
-	exDockerEnv  string
-	exDockerImg  string
-	exBinary     string
-	exBinaryCmd  string
+	exDocker    string
+	exDockerRun string
+	exDockerVol string
+	exDockerEnv string
+	exDockerImg string
+	exBinary    string
+	exBinaryCmd string
 }
 
 var defaultStrings = helpStrings{
