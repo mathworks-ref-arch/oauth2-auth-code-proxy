@@ -33,9 +33,9 @@
             "fuzzy": true
         },
         {
-            "id": "oauth2-auth-code-proxy --config \u003ccreds.yaml\u003e [options]",
-            "message": "oauth2-auth-code-proxy --config \u003ccreds.yaml\u003e [options]",
-            "translation": "oauth2-auth-code-proxy --config \u003ccreds.yaml\u003e [options]",
+            "id": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
+            "message": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
+            "translation": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -47,23 +47,23 @@
             "fuzzy": true
         },
         {
-            "id": "--config \u003cpath\u003e              Credentials YAML file (required)",
-            "message": "--config \u003cpath\u003e              Credentials YAML file (required)",
-            "translation": "--config \u003cpath\u003e              Credentials YAML file (required)",
+            "id": "--config <path>              Credentials YAML file (required)",
+            "message": "--config <path>              Credentials YAML file (required)",
+            "translation": "--config <path>              Credentials YAML file (required)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "--port \u003cport\u003e                REST API listen port (default: 80)",
-            "message": "--port \u003cport\u003e                REST API listen port (default: 80)",
-            "translation": "--port \u003cport\u003e                REST API listen port (default: 80)",
+            "id": "--port <port>                REST API listen port (default: 80)",
+            "message": "--port <port>                REST API listen port (default: 80)",
+            "translation": "--port <port>                REST API listen port (default: 80)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "--mwlegacy-port \u003cport\u003e       Legacy API listen port (default: 30045)",
-            "message": "--mwlegacy-port \u003cport\u003e       Legacy API listen port (default: 30045)",
-            "translation": "--mwlegacy-port \u003cport\u003e       Legacy API listen port (default: 30045)",
+            "id": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
+            "message": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
+            "translation": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -75,16 +75,16 @@
             "fuzzy": true
         },
         {
-            "id": "--tls-cert \u003cpath\u003e            TLS certificate for HTTPS serving",
-            "message": "--tls-cert \u003cpath\u003e            TLS certificate for HTTPS serving",
-            "translation": "--tls-cert \u003cpath\u003e            TLS certificate for HTTPS serving",
+            "id": "--tls-cert <path>            TLS certificate for HTTPS serving",
+            "message": "--tls-cert <path>            TLS certificate for HTTPS serving",
+            "translation": "--tls-cert <path>            TLS certificate for HTTPS serving",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "--tls-key \u003cpath\u003e             TLS private key for HTTPS serving",
-            "message": "--tls-key \u003cpath\u003e             TLS private key for HTTPS serving",
-            "translation": "--tls-key \u003cpath\u003e             TLS private key for HTTPS serving",
+            "id": "--tls-key <path>             TLS private key for HTTPS serving",
+            "message": "--tls-key <path>             TLS private key for HTTPS serving",
+            "translation": "--tls-key <path>             TLS private key for HTTPS serving",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -201,37 +201,23 @@
             "fuzzy": true
         },
         {
-            "id": "--set oas.port=\u003cport\u003e                       Legacy API port (use --mwlegacy-port)",
-            "message": "--set oas.port=\u003cport\u003e                       Legacy API port (use --mwlegacy-port)",
-            "translation": "--set oas.port=\u003cport\u003e                       Legacy API port (use --mwlegacy-port)",
+            "id": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
+            "message": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
+            "translation": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "--set oas.credSetupFile=\u003cpath\u003e               Credentials file (use --config)",
-            "message": "--set oas.credSetupFile=\u003cpath\u003e               Credentials file (use --config)",
-            "translation": "--set oas.credSetupFile=\u003cpath\u003e               Credentials file (use --config)",
+            "id": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
+            "message": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
+            "translation": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "--set oas.appFile=\u003cpath\u003e                     App config file (deprecated)",
-            "message": "--set oas.appFile=\u003cpath\u003e                     App config file (deprecated)",
-            "translation": "--set oas.appFile=\u003cpath\u003e                     App config file (deprecated)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--set mito.http.tls.certificatepath=\u003cpath\u003e   TLS cert (use --tls-cert)",
-            "message": "--set mito.http.tls.certificatepath=\u003cpath\u003e   TLS cert (use --tls-cert)",
-            "translation": "--set mito.http.tls.certificatepath=\u003cpath\u003e   TLS cert (use --tls-cert)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--set mito.http.tls.privatekeypath=\u003cpath\u003e    TLS key (use --tls-key)",
-            "message": "--set mito.http.tls.privatekeypath=\u003cpath\u003e    TLS key (use --tls-key)",
-            "translation": "--set mito.http.tls.privatekeypath=\u003cpath\u003e    TLS key (use --tls-key)",
+            "id": "--set oas.appFile=<path>                     App config file (deprecated)",
+            "message": "--set oas.appFile=<path>                     App config file (deprecated)",
+            "translation": "--set oas.appFile=<path>                     App config file (deprecated)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

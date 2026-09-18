@@ -162,16 +162,6 @@
             "translation": "--set oas.appFile=<chemin>                   Fichier config app (obsolète)"
         },
         {
-            "id": "--set mito.http.tls.certificatepath=<path>   TLS cert (use --tls-cert)",
-            "message": "--set mito.http.tls.certificatepath=<path>   TLS cert (use --tls-cert)",
-            "translation": "--set mito.http.tls.certificatepath=<chemin> Cert TLS (utiliser --tls-cert)"
-        },
-        {
-            "id": "--set mito.http.tls.privatekeypath=<path>    TLS key (use --tls-key)",
-            "message": "--set mito.http.tls.privatekeypath=<path>    TLS key (use --tls-key)",
-            "translation": "--set mito.http.tls.privatekeypath=<chemin>  Clé TLS (utiliser --tls-key)"
-        },
-        {
             "id": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
             "message": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
             "translation": "--set mito.http.tls.enabled=false            Désactiver TLS même si certs présents"

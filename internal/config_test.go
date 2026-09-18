@@ -401,19 +401,15 @@ func TestLoadConfig_TLSCertAndKey_DefaultEmpty(t *testing.T) {
 	r.Empty(cfg.TLSKeyFile)
 }
 
-func TestLoadConfig_LegacyMitoTLS(t *testing.T) {
+func TestLoadConfig_LegacyMitoTLS_EnabledTrue(t *testing.T) {
 	r := require.New(t)
 	logger := zap.NewNop()
 
 	cfg, err := LoadConfig([]string{
 		"cmd",
-		"--set", "mito.http.tls.certificatepath=/certs/all-dev.pem",
-		"--set", "mito.http.tls.privatekeypath=/certs/all-dev.key",
 		"--set", "mito.http.tls.enabled=true",
 	}, func(string) string { return "" }, logger)
 	r.NoError(err)
-	r.Equal("/certs/all-dev.pem", cfg.TLSCertFile)
-	r.Equal("/certs/all-dev.key", cfg.TLSKeyFile)
 	r.False(cfg.MWLegacyTLSDisabled)
 }
 
@@ -423,14 +419,44 @@ func TestLoadConfig_LegacyMitoTLS_Disabled(t *testing.T) {
 
 	cfg, err := LoadConfig([]string{
 		"cmd",
-		"--set", "mito.http.tls.certificatepath=/certs/all-dev.pem",
-		"--set", "mito.http.tls.privatekeypath=/certs/all-dev.key",
 		"--set", "mito.http.tls.enabled=false",
 	}, func(string) string { return "" }, logger)
 	r.NoError(err)
-	r.Equal("/certs/all-dev.pem", cfg.TLSCertFile)
-	r.Equal("/certs/all-dev.key", cfg.TLSKeyFile)
 	r.True(cfg.MWLegacyTLSDisabled)
+}
+
+func TestLoadConfig_TLSDisabled_Arg(t *testing.T) {
+	r := require.New(t)
+	logger := zap.NewNop()
+
+	cfg, err := LoadConfig([]string{"cmd", "--tls-disabled"}, func(string) string { return "" }, logger)
+	r.NoError(err)
+	r.True(cfg.MWLegacyTLSDisabled)
+}
+
+func TestLoadConfig_TLSDisabled_Env(t *testing.T) {
+	r := require.New(t)
+	logger := zap.NewNop()
+
+	getenv := func(key string) string {
+		if key == "OAUTH_TLS_DISABLED" {
+			return "true"
+		}
+		return ""
+	}
+
+	cfg, err := LoadConfig([]string{"cmd"}, getenv, logger)
+	r.NoError(err)
+	r.True(cfg.MWLegacyTLSDisabled)
+}
+
+func TestLoadConfig_TLSDisabled_DefaultFalse(t *testing.T) {
+	r := require.New(t)
+	logger := zap.NewNop()
+
+	cfg, err := LoadConfig([]string{"cmd"}, func(string) string { return "" }, logger)
+	r.NoError(err)
+	r.False(cfg.MWLegacyTLSDisabled)
 }
 
 func TestLoadConfig_NoDeprecationWarning_NewStyle(t *testing.T) {
@@ -556,34 +582,6 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 			},
 		},
 		{
-			"mito.http.tls.certificatepath sets TLSCertFile",
-			[]string{"cmd", "--set", "mito.http.tls.certificatepath=/certs/tls.pem"},
-			func(t *testing.T, cfg *Config) {
-				require.Equal(t, "/certs/tls.pem", cfg.TLSCertFile)
-			},
-		},
-		{
-			"mito.http.tls.certificatepem sets TLSCertFile",
-			[]string{"cmd", "--set", "mito.http.tls.certificatepem=/certs/alt.pem"},
-			func(t *testing.T, cfg *Config) {
-				require.Equal(t, "/certs/alt.pem", cfg.TLSCertFile)
-			},
-		},
-		{
-			"mito.http.tls.privatekeypath sets TLSKeyFile",
-			[]string{"cmd", "--set", "mito.http.tls.privatekeypath=/certs/tls.key"},
-			func(t *testing.T, cfg *Config) {
-				require.Equal(t, "/certs/tls.key", cfg.TLSKeyFile)
-			},
-		},
-		{
-			"mito.http.tls.privatekeypem sets TLSKeyFile",
-			[]string{"cmd", "--set", "mito.http.tls.privatekeypem=/certs/alt.key"},
-			func(t *testing.T, cfg *Config) {
-				require.Equal(t, "/certs/alt.key", cfg.TLSKeyFile)
-			},
-		},
-		{
 			"mito.http.tls.enabled=true does not disable TLS",
 			[]string{"cmd", "--set", "mito.http.tls.enabled=true"},
 			func(t *testing.T, cfg *Config) {
@@ -626,16 +624,12 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 				"cmd",
 				"--set", "oas.credSetupFile=/configs/creds.yaml",
 				"--set", "oas.port=30045",
-				"--set", "mito.http.tls.certificatepath=/configs/ssl/all-dev.pem",
-				"--set", "mito.http.tls.privatekeypath=/configs/ssl/all-dev.key",
 				"--set", "mito.http.tls.enabled=true",
 			},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "/configs/creds.yaml", cfg.CredSetupFile)
 				require.Equal(t, "30045", cfg.MWLegacyPort)
 				require.Equal(t, "80", cfg.Port)
-				require.Equal(t, "/configs/ssl/all-dev.pem", cfg.TLSCertFile)
-				require.Equal(t, "/configs/ssl/all-dev.key", cfg.TLSKeyFile)
 				require.False(t, cfg.MWLegacyTLSDisabled)
 			},
 		},
@@ -751,8 +745,8 @@ func TestLoadConfig_Precedence(t *testing.T) {
 			},
 		},
 		{
-			"CLI --tls-cert overrides --set mito.http.tls.certificatepath",
-			[]string{"cmd", "--set", "mito.http.tls.certificatepath=/old.pem", "--tls-cert", "/new.pem"},
+			"CLI --tls-cert sets TLSCertFile",
+			[]string{"cmd", "--tls-cert", "/new.pem"},
 			nil,
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "/new.pem", cfg.TLSCertFile)

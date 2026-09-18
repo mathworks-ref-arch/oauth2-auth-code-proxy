@@ -102,7 +102,7 @@ func logSetArgDeprecation(logger *zap.Logger, arg string) {
 	}
 
 	if strings.HasPrefix(parts[0], "mito.http.tls.") {
-		logger.Warn("deprecated: --set mito.http.tls.* is deprecated, use --tls-cert and --tls-key instead",
+		logger.Warn("deprecated: --set mito.http.tls.* is deprecated, use --tls-disabled instead",
 			zap.String("key", parts[0]))
 	}
 }
@@ -110,6 +110,8 @@ func logSetArgDeprecation(logger *zap.Logger, arg string) {
 func loadConfigFromNewArgs(cfg *Config, args []string) {
 	for i := 1; i < len(args); i++ {
 		switch args[i] {
+		case "--tls-disabled":
+			cfg.MWLegacyTLSDisabled = true
 		case "--tls-insecure-skip-verify":
 			cfg.TLSInsecureSkipVerify = true
 		case "--mwlegacy-enabled=false":
@@ -239,10 +241,6 @@ func parseOASSetArg(cfg *Config, key string, val string) {
 
 func parseMitoTLSSetArg(cfg *Config, key string, val string) {
 	switch key {
-	case "certificatepath", "certificatepem":
-		cfg.TLSCertFile = val
-	case "privatekeypath", "privatekeypem":
-		cfg.TLSKeyFile = val
 	case "enabled":
 		if val == "false" {
 			cfg.MWLegacyTLSDisabled = true
@@ -257,6 +255,9 @@ func loadConfigFromEnv(cfg *Config, getenv func(string) string) {
 	}
 	if v := getenv("OAUTH_TLS_INSECURE_SKIP_VERIFY"); v == "1" || v == "true" {
 		cfg.TLSInsecureSkipVerify = true
+	}
+	if v := getenv("OAUTH_TLS_DISABLED"); v == "1" || v == "true" {
+		cfg.MWLegacyTLSDisabled = true
 	}
 }
 

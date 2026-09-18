@@ -25,6 +25,7 @@ type helpStrings struct {
 	optMwlegacyEnabled string
 	optTlsCert         string
 	optTlsKey          string
+	optTlsDisabled     string
 	optTlsInsecure     string
 	optLegacy          string
 
@@ -34,6 +35,7 @@ type helpStrings struct {
 	envMwlegacyEnabled string
 	envTlsCert         string
 	envTlsKey          string
+	envTlsDisabled     string
 	envTlsInsecure     string
 	envLang            string
 
@@ -45,8 +47,6 @@ type helpStrings struct {
 	legacyOasPort  string
 	legacyOasCred  string
 	legacyOasApp   string
-	legacyMitoCert string
-	legacyMitoKey  string
 	legacyMitoTls  string
 	legacyEnvTitle string
 	legacyMwPort   string
@@ -79,6 +79,7 @@ var defaultStrings = helpStrings{
 	optMwlegacyEnabled: "  --mwlegacy-enabled=false     Disable legacy API listener",
 	optTlsCert:         "  --tls-cert <path>            TLS certificate for HTTPS serving",
 	optTlsKey:          "  --tls-key <path>             TLS private key for HTTPS serving",
+	optTlsDisabled:     "  --tls-disabled               Disable TLS even if certs present",
 	optTlsInsecure:     "  --tls-insecure-skip-verify   Skip TLS verify on outbound calls",
 	optLegacy:          "  --legacy                     Show legacy configuration options",
 
@@ -88,6 +89,7 @@ var defaultStrings = helpStrings{
 	envMwlegacyEnabled: "  OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
 	envTlsCert:         "  OAUTH_TLS_CERT_FILE          TLS certificate path",
 	envTlsKey:          "  OAUTH_TLS_KEY_FILE           TLS private key path",
+	envTlsDisabled:     "  OAUTH_TLS_DISABLED           Set true to disable TLS even if certs present",
 	envTlsInsecure:     "  OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
 	envLang:            "  LANG                         Locale for help output (en-US, fr-FR)",
 
@@ -99,9 +101,7 @@ var defaultStrings = helpStrings{
 	legacyOasPort:  "  --set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
 	legacyOasCred:  "  --set oas.credSetupFile=<path>               Credentials file (use --config)",
 	legacyOasApp:   "  --set oas.appFile=<path>                     App config file (deprecated)",
-	legacyMitoCert: "  --set mito.http.tls.certificatepath=<path>   TLS cert (use --tls-cert)",
-	legacyMitoKey:  "  --set mito.http.tls.privatekeypath=<path>    TLS key (use --tls-key)",
-	legacyMitoTls:  "  --set mito.http.tls.enabled=false            Disable TLS even if certs present",
+	legacyMitoTls:  "  --set mito.http.tls.enabled=false            Disable TLS (use --tls-disabled)",
 	legacyEnvTitle: "Legacy Environment Variables:",
 	legacyMwPort:   "  MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
 	legacyMwCred:   "  MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
@@ -133,6 +133,7 @@ var frenchStrings = helpStrings{
 	optMwlegacyEnabled: "  --mwlegacy-enabled=false     Désactiver l'écouteur API legacy",
 	optTlsCert:         "  --tls-cert <chemin>          Certificat TLS pour le service HTTPS",
 	optTlsKey:          "  --tls-key <chemin>           Clé privée TLS pour le service HTTPS",
+	optTlsDisabled:     "  --tls-disabled               Désactiver TLS même si certs présents",
 	optTlsInsecure:     "  --tls-insecure-skip-verify   Ignorer la vérification TLS sur les appels sortants",
 	optLegacy:          "  --legacy                     Afficher les options de configuration legacy",
 
@@ -142,6 +143,7 @@ var frenchStrings = helpStrings{
 	envMwlegacyEnabled: "  OAUTH_MWLEGACY_ENABLED       Mettre à false pour désactiver l'API legacy",
 	envTlsCert:         "  OAUTH_TLS_CERT_FILE          Chemin du certificat TLS",
 	envTlsKey:          "  OAUTH_TLS_KEY_FILE           Chemin de la clé privée TLS",
+	envTlsDisabled:     "  OAUTH_TLS_DISABLED           Mettre à true pour désactiver TLS même si certs présents",
 	envTlsInsecure:     "  OAUTH_TLS_INSECURE_SKIP_VERIFY  Mettre à true pour ignorer la vérification TLS sortante",
 	envLang:            "  LANG                         Langue de l'aide (en-US, fr-FR)",
 
@@ -153,9 +155,7 @@ var frenchStrings = helpStrings{
 	legacyOasPort:  "  --set oas.port=<port>                       Port API legacy (utiliser --mwlegacy-port)",
 	legacyOasCred:  "  --set oas.credSetupFile=<chemin>             Fichier identifiants (utiliser --config)",
 	legacyOasApp:   "  --set oas.appFile=<chemin>                   Fichier config app (obsolète)",
-	legacyMitoCert: "  --set mito.http.tls.certificatepath=<chemin> Cert TLS (utiliser --tls-cert)",
-	legacyMitoKey:  "  --set mito.http.tls.privatekeypath=<chemin>  Clé TLS (utiliser --tls-key)",
-	legacyMitoTls:  "  --set mito.http.tls.enabled=false            Désactiver TLS même si certs présents",
+	legacyMitoTls:  "  --set mito.http.tls.enabled=false            Désactiver TLS (utiliser --tls-disabled)",
 	legacyEnvTitle: "Variables d'environnement legacy :",
 	legacyMwPort:   "  MW_PORT                      Port API legacy (utiliser OAUTH_MWLEGACY_PORT)",
 	legacyMwCred:   "  MW_CREDSETUPFILE             Fichier identifiants (utiliser OAUTH_CREDS_FILE)",
@@ -202,6 +202,7 @@ func printHelp(w io.Writer, lang string, ver string, legacy bool) {
 	fmt.Fprintf(w, "%s\n", s.optMwlegacyEnabled)
 	fmt.Fprintf(w, "%s\n", s.optTlsCert)
 	fmt.Fprintf(w, "%s\n", s.optTlsKey)
+	fmt.Fprintf(w, "%s\n", s.optTlsDisabled)
 	fmt.Fprintf(w, "%s\n", s.optTlsInsecure)
 	fmt.Fprintf(w, "%s\n\n", s.optLegacy)
 
@@ -212,6 +213,7 @@ func printHelp(w io.Writer, lang string, ver string, legacy bool) {
 	fmt.Fprintf(w, "%s\n", s.envMwlegacyEnabled)
 	fmt.Fprintf(w, "%s\n", s.envTlsCert)
 	fmt.Fprintf(w, "%s\n", s.envTlsKey)
+	fmt.Fprintf(w, "%s\n", s.envTlsDisabled)
 	fmt.Fprintf(w, "%s\n", s.envTlsInsecure)
 	fmt.Fprintf(w, "%s\n\n", s.envLang)
 
@@ -227,8 +229,6 @@ func printHelp(w io.Writer, lang string, ver string, legacy bool) {
 		fmt.Fprintf(w, "%s\n", s.legacyOasPort)
 		fmt.Fprintf(w, "%s\n", s.legacyOasCred)
 		fmt.Fprintf(w, "%s\n", s.legacyOasApp)
-		fmt.Fprintf(w, "%s\n", s.legacyMitoCert)
-		fmt.Fprintf(w, "%s\n", s.legacyMitoKey)
 		fmt.Fprintf(w, "%s\n\n", s.legacyMitoTls)
 		fmt.Fprintf(w, "%s\n", s.legacyEnvTitle)
 		fmt.Fprintf(w, "%s\n", s.legacyMwPort)

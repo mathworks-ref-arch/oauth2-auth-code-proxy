@@ -85,7 +85,7 @@ func listenConfig(cfg *proxy.Config, logger *zap.Logger) domain.ListenConfig {
 	if cfg.MWLegacyTLSDisabled {
 		tlsCert = ""
 		tlsKey = ""
-		logger.Warn("TLS disabled via legacy mito.http.tls.enabled=false")
+		logger.Warn("TLS disabled via --tls-disabled")
 	}
 	return domain.ListenConfig{
 		RESTPort:        cfg.Port,
