@@ -496,16 +496,9 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "oneOf": [
-                                    {
-                                        "type": "object"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/v1.AuthorizeRequest",
-                                        "summary": "body",
-                                        "description": "Authorization request"
-                                    }
-                                ]
+                                "$ref": "#/components/schemas/v1.AuthorizeRequest",
+                                "summary": "body",
+                                "description": "Authorization request"
                             }
                         }
                     },
@@ -595,16 +588,9 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "oneOf": [
-                                    {
-                                        "type": "object"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/v1.TokenRequestBody",
-                                        "summary": "body",
-                                        "description": "Token request"
-                                    }
-                                ]
+                                "$ref": "#/components/schemas/v1.TokenRequestBody",
+                                "summary": "body",
+                                "description": "Token request"
                             }
                         }
                     },
