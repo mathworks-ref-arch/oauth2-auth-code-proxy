@@ -187,9 +187,9 @@
             "fuzzy": true
         },
         {
-            "id": "Settings prefixed with oas. or mito. are deprecated but supported",
-            "message": "Settings prefixed with oas. or mito. are deprecated but supported",
-            "translation": "Settings prefixed with oas. or mito. are deprecated but supported",
+            "id": "Settings prefixed with oas. are deprecated but supported",
+            "message": "Settings prefixed with oas. are deprecated but supported",
+            "translation": "Settings prefixed with oas. are deprecated but supported",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -218,13 +218,6 @@
             "id": "--set oas.appFile=<path>                     App config file (deprecated)",
             "message": "--set oas.appFile=<path>                     App config file (deprecated)",
             "translation": "--set oas.appFile=<path>                     App config file (deprecated)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
-            "message": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
-            "translation": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

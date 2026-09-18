@@ -137,9 +137,9 @@
             "translation": "Paramètres legacy (--set) :"
         },
         {
-            "id": "Settings prefixed with oas. or mito. are deprecated but supported",
-            "message": "Settings prefixed with oas. or mito. are deprecated but supported",
-            "translation": "Les paramètres préfixés par oas. ou mito. sont obsolètes mais supportés"
+            "id": "Settings prefixed with oas. are deprecated but supported",
+            "message": "Settings prefixed with oas. are deprecated but supported",
+            "translation": "Les paramètres préfixés par oas. sont obsolètes mais supportés"
         },
         {
             "id": "for backward compatibility.",
@@ -160,11 +160,6 @@
             "id": "--set oas.appFile=<path>                     App config file (deprecated)",
             "message": "--set oas.appFile=<path>                     App config file (deprecated)",
             "translation": "--set oas.appFile=<chemin>                   Fichier config app (obsolète)"
-        },
-        {
-            "id": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
-            "message": "--set mito.http.tls.enabled=false            Disable TLS even if certs present",
-            "translation": "--set mito.http.tls.enabled=false            Désactiver TLS même si certs présents"
         },
         {
             "id": "Legacy Environment Variables:",

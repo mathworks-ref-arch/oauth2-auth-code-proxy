@@ -401,30 +401,6 @@ func TestLoadConfig_TLSCertAndKey_DefaultEmpty(t *testing.T) {
 	r.Empty(cfg.TLSKeyFile)
 }
 
-func TestLoadConfig_LegacyMitoTLS_EnabledTrue(t *testing.T) {
-	r := require.New(t)
-	logger := zap.NewNop()
-
-	cfg, err := LoadConfig([]string{
-		"cmd",
-		"--set", "mito.http.tls.enabled=true",
-	}, func(string) string { return "" }, logger)
-	r.NoError(err)
-	r.False(cfg.MWLegacyTLSDisabled)
-}
-
-func TestLoadConfig_LegacyMitoTLS_Disabled(t *testing.T) {
-	r := require.New(t)
-	logger := zap.NewNop()
-
-	cfg, err := LoadConfig([]string{
-		"cmd",
-		"--set", "mito.http.tls.enabled=false",
-	}, func(string) string { return "" }, logger)
-	r.NoError(err)
-	r.True(cfg.MWLegacyTLSDisabled)
-}
-
 func TestLoadConfig_TLSDisabled_Arg(t *testing.T) {
 	r := require.New(t)
 	logger := zap.NewNop()
@@ -582,32 +558,11 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 			},
 		},
 		{
-			"mito.http.tls.enabled=true does not disable TLS",
-			[]string{"cmd", "--set", "mito.http.tls.enabled=true"},
-			func(t *testing.T, cfg *Config) {
-				require.False(t, cfg.MWLegacyTLSDisabled)
-			},
-		},
-		{
-			"mito.http.tls.enabled=false disables TLS",
-			[]string{"cmd", "--set", "mito.http.tls.enabled=false"},
-			func(t *testing.T, cfg *Config) {
-				require.True(t, cfg.MWLegacyTLSDisabled)
-			},
-		},
-		{
 			"unknown oas. key is ignored",
 			[]string{"cmd", "--set", "oas.unknownKey=value"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "80", cfg.Port)
 				require.Equal(t, "30045", cfg.MWLegacyPort)
-			},
-		},
-		{
-			"unknown mito. key is ignored",
-			[]string{"cmd", "--set", "mito.http.tls.unknownKey=value"},
-			func(t *testing.T, cfg *Config) {
-				require.Empty(t, cfg.TLSCertFile)
 			},
 		},
 		{
@@ -624,13 +579,11 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 				"cmd",
 				"--set", "oas.credSetupFile=/configs/creds.yaml",
 				"--set", "oas.port=30045",
-				"--set", "mito.http.tls.enabled=true",
 			},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "/configs/creds.yaml", cfg.CredSetupFile)
 				require.Equal(t, "30045", cfg.MWLegacyPort)
 				require.Equal(t, "80", cfg.Port)
-				require.False(t, cfg.MWLegacyTLSDisabled)
 			},
 		},
 	}

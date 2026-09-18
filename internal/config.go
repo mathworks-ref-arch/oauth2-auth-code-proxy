@@ -101,10 +101,6 @@ func logSetArgDeprecation(logger *zap.Logger, arg string) {
 		return
 	}
 
-	if strings.HasPrefix(parts[0], "mito.http.tls.") {
-		logger.Warn("deprecated: --set mito.http.tls.* is deprecated, use --tls-disabled instead",
-			zap.String("key", parts[0]))
-	}
 }
 
 func loadConfigFromNewArgs(cfg *Config, args []string) {
@@ -222,10 +218,6 @@ func parseSetArg(cfg *Config, arg string) {
 		return
 	}
 
-	if key, found := strings.CutPrefix(parts[0], "mito.http.tls."); found {
-		parseMitoTLSSetArg(cfg, key, val)
-		return
-	}
 }
 
 func parseOASSetArg(cfg *Config, key string, val string) {
@@ -236,15 +228,6 @@ func parseOASSetArg(cfg *Config, key string, val string) {
 		cfg.CredSetupFile = val
 	case "appFile":
 		cfg.AppFile = val
-	}
-}
-
-func parseMitoTLSSetArg(cfg *Config, key string, val string) {
-	switch key {
-	case "enabled":
-		if val == "false" {
-			cfg.MWLegacyTLSDisabled = true
-		}
 	}
 }
 

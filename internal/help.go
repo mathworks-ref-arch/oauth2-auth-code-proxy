@@ -47,7 +47,6 @@ type helpStrings struct {
 	legacyOasPort  string
 	legacyOasCred  string
 	legacyOasApp   string
-	legacyMitoTls  string
 	legacyEnvTitle string
 	legacyMwPort   string
 	legacyMwCred   string
@@ -96,12 +95,11 @@ var defaultStrings = helpStrings{
 	legacyDefault:  "The legacy API listener is enabled by default on port 30045.",
 	legacyDisable:  "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
 	legacyTitle:    "Legacy Settings (--set):",
-	legacyPrefixed: "  Settings prefixed with oas. or mito. are deprecated but supported",
+	legacyPrefixed: "  Settings prefixed with oas. are deprecated but supported",
 	legacyBackward: "  for backward compatibility.",
 	legacyOasPort:  "  --set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
 	legacyOasCred:  "  --set oas.credSetupFile=<path>               Credentials file (use --config)",
 	legacyOasApp:   "  --set oas.appFile=<path>                     App config file (deprecated)",
-	legacyMitoTls:  "  --set mito.http.tls.enabled=false            Disable TLS (use --tls-disabled)",
 	legacyEnvTitle: "Legacy Environment Variables:",
 	legacyMwPort:   "  MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
 	legacyMwCred:   "  MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
@@ -150,12 +148,11 @@ var frenchStrings = helpStrings{
 	legacyDefault:  "L'écouteur API legacy est activé par défaut sur le port 30045.",
 	legacyDisable:  "Utilisez --mwlegacy-enabled=false pour désactiver, ou --legacy pour les options legacy.",
 	legacyTitle:    "Paramètres legacy (--set) :",
-	legacyPrefixed: "  Les paramètres préfixés par oas. ou mito. sont obsolètes mais supportés",
+	legacyPrefixed: "  Les paramètres préfixés par oas. sont obsolètes mais supportés",
 	legacyBackward: "  pour la rétrocompatibilité.",
 	legacyOasPort:  "  --set oas.port=<port>                       Port API legacy (utiliser --mwlegacy-port)",
 	legacyOasCred:  "  --set oas.credSetupFile=<chemin>             Fichier identifiants (utiliser --config)",
 	legacyOasApp:   "  --set oas.appFile=<chemin>                   Fichier config app (obsolète)",
-	legacyMitoTls:  "  --set mito.http.tls.enabled=false            Désactiver TLS (utiliser --tls-disabled)",
 	legacyEnvTitle: "Variables d'environnement legacy :",
 	legacyMwPort:   "  MW_PORT                      Port API legacy (utiliser OAUTH_MWLEGACY_PORT)",
 	legacyMwCred:   "  MW_CREDSETUPFILE             Fichier identifiants (utiliser OAUTH_CREDS_FILE)",
@@ -228,8 +225,7 @@ func printHelp(w io.Writer, lang string, ver string, legacy bool) {
 		fmt.Fprintf(w, "%s\n\n", s.legacyBackward)
 		fmt.Fprintf(w, "%s\n", s.legacyOasPort)
 		fmt.Fprintf(w, "%s\n", s.legacyOasCred)
-		fmt.Fprintf(w, "%s\n", s.legacyOasApp)
-		fmt.Fprintf(w, "%s\n\n", s.legacyMitoTls)
+		fmt.Fprintf(w, "%s\n\n", s.legacyOasApp)
 		fmt.Fprintf(w, "%s\n", s.legacyEnvTitle)
 		fmt.Fprintf(w, "%s\n", s.legacyMwPort)
 		fmt.Fprintf(w, "%s\n", s.legacyMwCred)

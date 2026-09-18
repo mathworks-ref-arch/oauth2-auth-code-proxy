@@ -78,6 +78,5 @@ func TestRun_LegacyHelp(t *testing.T) {
 	r.NoError(err)
 	r.Contains(buf.String(), "Legacy Settings")
 	r.Contains(buf.String(), "oas.port")
-	r.Contains(buf.String(), "mito.http.tls")
 	r.Contains(buf.String(), "MW_PORT")
 }
