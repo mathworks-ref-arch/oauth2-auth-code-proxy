@@ -89,14 +89,14 @@ func loadConfigFromSetArgs(cfg *Config, args []string, logger *zap.Logger) {
 func logSetArgDeprecation(logger *zap.Logger, arg string) {
 	parts := strings.SplitN(arg, "=", 2)
 
-	if key, found := strings.CutPrefix(parts[0], "oas."); found {
+	if key, found := strings.CutPrefix(parts[0], "oacp."); found {
 		switch key {
 		case "port":
-			logger.Warn("deprecated: --set oas.port is deprecated, use --mwlegacy-port instead")
+			logger.Warn("deprecated: --set oacp.port is deprecated, use --mwlegacy-port instead")
 		case "credSetupFile":
-			logger.Warn("deprecated: --set oas.credSetupFile is deprecated, use --config instead")
+			logger.Warn("deprecated: --set oacp.credSetupFile is deprecated, use --config instead")
 		case "appFile":
-			logger.Warn("deprecated: --set oas.appFile is deprecated, use --config and env vars directly")
+			logger.Warn("deprecated: --set oacp.appFile is deprecated, use --config and env vars directly")
 		}
 		return
 	}
@@ -213,7 +213,7 @@ func parseSetArg(cfg *Config, arg string) {
 		val = parts[1]
 	}
 
-	if key, found := strings.CutPrefix(parts[0], "oas."); found {
+	if key, found := strings.CutPrefix(parts[0], "oacp."); found {
 		parseOASSetArg(cfg, key, val)
 		return
 	}

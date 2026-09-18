@@ -137,9 +137,9 @@
             "translation": "Paramètres legacy (--set) :"
         },
         {
-            "id": "Settings prefixed with oas. are deprecated but supported",
-            "message": "Settings prefixed with oas. are deprecated but supported",
-            "translation": "Les paramètres préfixés par oas. sont obsolètes mais supportés"
+            "id": "Settings prefixed with oacp. are deprecated but supported",
+            "message": "Settings prefixed with oacp. are deprecated but supported",
+            "translation": "Les paramètres préfixés par oacp. sont obsolètes mais supportés"
         },
         {
             "id": "for backward compatibility.",
@@ -147,19 +147,19 @@
             "translation": "pour la rétrocompatibilité."
         },
         {
-            "id": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "message": "--set oas.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "translation": "--set oas.port=<port>                       Port API legacy (utiliser --mwlegacy-port)"
+            "id": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
+            "message": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
+            "translation": "--set oacp.port=<port>                       Port API legacy (utiliser --mwlegacy-port)"
         },
         {
-            "id": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
-            "message": "--set oas.credSetupFile=<path>               Credentials file (use --config)",
-            "translation": "--set oas.credSetupFile=<chemin>             Fichier identifiants (utiliser --config)"
+            "id": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
+            "message": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
+            "translation": "--set oacp.credSetupFile=<chemin>             Fichier identifiants (utiliser --config)"
         },
         {
-            "id": "--set oas.appFile=<path>                     App config file (deprecated)",
-            "message": "--set oas.appFile=<path>                     App config file (deprecated)",
-            "translation": "--set oas.appFile=<chemin>                   Fichier config app (obsolète)"
+            "id": "--set oacp.appFile=<path>                     App config file (deprecated)",
+            "message": "--set oacp.appFile=<path>                     App config file (deprecated)",
+            "translation": "--set oacp.appFile=<chemin>                   Fichier config app (obsolète)"
         },
         {
             "id": "Legacy Environment Variables:",

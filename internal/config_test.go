@@ -202,7 +202,7 @@ func TestLoadConfig_AppFileLoading(t *testing.T) {
 	r := require.New(t)
 	logger := zap.NewNop()
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"}, func(string) string { return "" }, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"}, func(string) string { return "" }, logger)
 	r.NoError(err)
 	r.Equal("9999", cfg.MWLegacyPort)
 	r.Equal("/from/app/yaml/creds.yaml", cfg.CredSetupFile)
@@ -219,7 +219,7 @@ func TestLoadConfig_AppFileOverridesMWEnv(t *testing.T) {
 		return ""
 	}
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"}, getenv, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"}, getenv, logger)
 	r.NoError(err)
 	r.Equal("9999", cfg.MWLegacyPort)
 }
@@ -228,7 +228,7 @@ func TestLoadConfig_NewArgsOverrideAppFile(t *testing.T) {
 	r := require.New(t)
 	logger := zap.NewNop()
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.appFile=testdata/app.yaml", "--mwlegacy-port", "7777"}, func(string) string { return "" }, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml", "--mwlegacy-port", "7777"}, func(string) string { return "" }, logger)
 	r.NoError(err)
 	r.Equal("7777", cfg.MWLegacyPort)
 }
@@ -244,7 +244,7 @@ func TestLoadConfig_OAuthEnvOverridesAppFile(t *testing.T) {
 		return ""
 	}
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"}, getenv, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"}, getenv, logger)
 	r.NoError(err)
 	r.Equal("5555", cfg.MWLegacyPort)
 }
@@ -270,7 +270,7 @@ func TestLoadConfig_AppFileIgnoresUnknownFields(t *testing.T) {
 	r := require.New(t)
 	logger := zap.NewNop()
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"}, func(string) string { return "" }, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"}, func(string) string { return "" }, logger)
 	r.NoError(err)
 	r.Equal("9999", cfg.MWLegacyPort)
 }
@@ -335,12 +335,12 @@ func TestLoadConfig_DeprecationWarning_SetOasPort(t *testing.T) {
 	core, logs := observer.New(zap.WarnLevel)
 	logger := zap.New(core)
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.port=9999"}, func(string) string { return "" }, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.port=9999"}, func(string) string { return "" }, logger)
 	r.NoError(err)
 	r.Equal("9999", cfg.MWLegacyPort)
 
 	a.GreaterOrEqual(logs.Len(), 1)
-	a.Contains(logs.All()[0].Message, "--set oas.port")
+	a.Contains(logs.All()[0].Message, "--set oacp.port")
 	a.Contains(logs.All()[0].Message, "--mwlegacy-port")
 }
 
@@ -350,7 +350,7 @@ func TestLoadConfig_DeprecationWarning_AppFile(t *testing.T) {
 	core, logs := observer.New(zap.WarnLevel)
 	logger := zap.New(core)
 
-	cfg, err := LoadConfig([]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"}, func(string) string { return "" }, logger)
+	cfg, err := LoadConfig([]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"}, func(string) string { return "" }, logger)
 	r.NoError(err)
 	r.Equal("9999", cfg.MWLegacyPort)
 
@@ -358,7 +358,7 @@ func TestLoadConfig_DeprecationWarning_AppFile(t *testing.T) {
 	for _, entry := range logs.All() {
 		messages = append(messages, entry.Message)
 	}
-	a.GreaterOrEqual(len(messages), 2, "expected warnings for --set oas.appFile and app.yaml loading")
+	a.GreaterOrEqual(len(messages), 2, "expected warnings for --set oacp.appFile and app.yaml loading")
 }
 
 func TestLoadConfig_TLSCertAndKey_Args(t *testing.T) {
@@ -499,7 +499,7 @@ func TestLoadConfig_PortResolution(t *testing.T) {
 			getenv := func(string) string { return "" }
 
 			if tc.name == "legacy_set_oas_port" {
-				args = append(args, "--set", "oas.port=8888")
+				args = append(args, "--set", "oacp.port=8888")
 			}
 			if tc.name == "legacy_mw_port_env" {
 				getenv = func(key string) string {
@@ -534,23 +534,23 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 		check func(*testing.T, *Config)
 	}{
 		{
-			"oas.port sets MWLegacyPort",
-			[]string{"cmd", "--set", "oas.port=31000"},
+			"oacp.port sets MWLegacyPort",
+			[]string{"cmd", "--set", "oacp.port=31000"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "31000", cfg.MWLegacyPort)
 				require.Equal(t, "80", cfg.Port)
 			},
 		},
 		{
-			"oas.credSetupFile sets CredSetupFile",
-			[]string{"cmd", "--set", "oas.credSetupFile=/path/creds.yaml"},
+			"oacp.credSetupFile sets CredSetupFile",
+			[]string{"cmd", "--set", "oacp.credSetupFile=/path/creds.yaml"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "/path/creds.yaml", cfg.CredSetupFile)
 			},
 		},
 		{
-			"oas.appFile sets AppFile and loads it",
-			[]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"},
+			"oacp.appFile sets AppFile and loads it",
+			[]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "testdata/app.yaml", cfg.AppFile)
 				require.Equal(t, "9999", cfg.MWLegacyPort)
@@ -558,8 +558,8 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 			},
 		},
 		{
-			"unknown oas. key is ignored",
-			[]string{"cmd", "--set", "oas.unknownKey=value"},
+			"unknown oacp. key is ignored",
+			[]string{"cmd", "--set", "oacp.unknownKey=value"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "80", cfg.Port)
 				require.Equal(t, "30045", cfg.MWLegacyPort)
@@ -577,8 +577,8 @@ func TestLoadConfig_LegacySetArgs(t *testing.T) {
 			"full launch.json equivalent",
 			[]string{
 				"cmd",
-				"--set", "oas.credSetupFile=/configs/creds.yaml",
-				"--set", "oas.port=30045",
+				"--set", "oacp.credSetupFile=/configs/creds.yaml",
+				"--set", "oacp.port=30045",
 			},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "/configs/creds.yaml", cfg.CredSetupFile)
@@ -607,8 +607,8 @@ func TestLoadConfig_Precedence(t *testing.T) {
 		check func(*testing.T, *Config)
 	}{
 		{
-			"CLI --mwlegacy-port overrides --set oas.port",
-			[]string{"cmd", "--set", "oas.port=11111", "--mwlegacy-port", "22222"},
+			"CLI --mwlegacy-port overrides --set oacp.port",
+			[]string{"cmd", "--set", "oacp.port=11111", "--mwlegacy-port", "22222"},
 			nil,
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "22222", cfg.MWLegacyPort)
@@ -632,16 +632,16 @@ func TestLoadConfig_Precedence(t *testing.T) {
 			},
 		},
 		{
-			"OAUTH_MWLEGACY_PORT overrides --set oas.port",
-			[]string{"cmd", "--set", "oas.port=11111"},
+			"OAUTH_MWLEGACY_PORT overrides --set oacp.port",
+			[]string{"cmd", "--set", "oacp.port=11111"},
 			map[string]string{"OAUTH_MWLEGACY_PORT": "22222"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "22222", cfg.MWLegacyPort)
 			},
 		},
 		{
-			"MW_PORT overrides --set oas.port (processed after set args)",
-			[]string{"cmd", "--set", "oas.port=11111"},
+			"MW_PORT overrides --set oacp.port (processed after set args)",
+			[]string{"cmd", "--set", "oacp.port=11111"},
 			map[string]string{"MW_PORT": "22222"},
 			func(t *testing.T, cfg *Config) {
 				// MW env is processed after --set args
@@ -650,7 +650,7 @@ func TestLoadConfig_Precedence(t *testing.T) {
 		},
 		{
 			"app file port overrides MW_PORT (app file after MW env)",
-			[]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"},
+			[]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"},
 			map[string]string{"MW_PORT": "11111"},
 			func(t *testing.T, cfg *Config) {
 				// app file (port: 9999) is loaded after MW env
@@ -659,7 +659,7 @@ func TestLoadConfig_Precedence(t *testing.T) {
 		},
 		{
 			"CLI --mwlegacy-port overrides app file",
-			[]string{"cmd", "--set", "oas.appFile=testdata/app.yaml", "--mwlegacy-port", "7777"},
+			[]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml", "--mwlegacy-port", "7777"},
 			nil,
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "7777", cfg.MWLegacyPort)
@@ -667,15 +667,15 @@ func TestLoadConfig_Precedence(t *testing.T) {
 		},
 		{
 			"OAUTH_MWLEGACY_PORT overrides app file",
-			[]string{"cmd", "--set", "oas.appFile=testdata/app.yaml"},
+			[]string{"cmd", "--set", "oacp.appFile=testdata/app.yaml"},
 			map[string]string{"OAUTH_MWLEGACY_PORT": "6666"},
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "6666", cfg.MWLegacyPort)
 			},
 		},
 		{
-			"CLI --config overrides --set oas.credSetupFile",
-			[]string{"cmd", "--set", "oas.credSetupFile=/old/path", "--config", "/new/path"},
+			"CLI --config overrides --set oacp.credSetupFile",
+			[]string{"cmd", "--set", "oacp.credSetupFile=/old/path", "--config", "/new/path"},
 			nil,
 			func(t *testing.T, cfg *Config) {
 				require.Equal(t, "/new/path", cfg.CredSetupFile)
@@ -717,13 +717,13 @@ func TestLoadConfig_Precedence(t *testing.T) {
 			"full precedence chain: set < MW env < app file < CLI < OAUTH env",
 			[]string{
 				"cmd",
-				"--set", "oas.port=10000",
-				"--set", "oas.appFile=testdata/app.yaml",
+				"--set", "oacp.port=10000",
+				"--set", "oacp.appFile=testdata/app.yaml",
 				"--mwlegacy-port", "20000",
 			},
 			map[string]string{"MW_PORT": "15000", "OAUTH_MWLEGACY_PORT": "30000"},
 			func(t *testing.T, cfg *Config) {
-				// Precedence: --set oas.port=10000, then MW_PORT=15000 overrides,
+				// Precedence: --set oacp.port=10000, then MW_PORT=15000 overrides,
 				// then app file port=9999 overrides, then --mwlegacy-port=20000 overrides,
 				// then OAUTH_MWLEGACY_PORT=30000 overrides. Final: 30000
 				require.Equal(t, "30000", cfg.MWLegacyPort)

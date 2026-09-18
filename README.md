@@ -170,12 +170,12 @@ For backwards compatibility with prior internal releases, the following environm
 | `MW_CREDSETUPFILE` | `OAUTH_CREDS_FILE` | Path to credentials YAML |
 | `MW_APPFILE` | `--config` | Path to app.yaml config file |
 
-The `--set oas.*` CLI flag pattern from previous versions is also supported:
+The `--set oacp.*` CLI flag pattern from previous versions is also supported:
 
 ```bash
---set oas.port=30045        # use --port instead
---set oas.credSetupFile=... # use --config instead
---set oas.appFile=...       # use --config and env vars directly
+--set oacp.port=30045        # use --port instead
+--set oacp.credSetupFile=... # use --config instead
+--set oacp.appFile=...       # use --config and env vars directly
 ```
 
 #### Configuration Loading Precedence
@@ -183,7 +183,7 @@ The `--set oas.*` CLI flag pattern from previous versions is also supported:
 When multiple configuration sources are present, later sources override earlier ones:
 
 1. Built-in defaults (port=30045)
-2. `--set oas.*` CLI flags (deprecated)
+2. `--set oacp.*` CLI flags (deprecated)
 3. `MW_*` environment variables (deprecated)
 4. App YAML file (deprecated)
 5. `--port` / `--config` CLI flags

@@ -1,6 +1,6 @@
 # Upgrading from Internal Beta to v1.15
 
-This guide covers migrating from the internal beta release (which used `MW_*` environment variables, `--set oas.*` CLI flags, and `app.yaml` config files) to the current open-source release.
+This guide covers migrating from the internal beta release (which used `MW_*` environment variables, `--set oacp.*` CLI flags, and `app.yaml` config files) to the current open-source release.
 
 ## Summary of Changes
 
@@ -9,9 +9,9 @@ This guide covers migrating from the internal beta release (which used `MW_*` en
 | `MW_PORT` | `OAUTH_PORT` | Environment variable |
 | `MW_CREDSETUPFILE` | `OAUTH_CREDS_FILE` | Environment variable |
 | `MW_APPFILE` + app.yaml | `--config` / `OAUTH_CREDS_FILE` | App.yaml no longer needed |
-| `--set oas.port=N` | `--port N` | CLI flag |
-| `--set oas.credSetupFile=path` | `--config path` | CLI flag |
-| `--set oas.appFile=path` | _(removed)_ | Use `--config` directly |
+| `--set oacp.port=N` | `--port N` | CLI flag |
+| `--set oacp.credSetupFile=path` | `--config path` | CLI flag |
+| `--set oacp.appFile=path` | _(removed)_ | Use `--config` directly |
 
 ## What Still Works (Deprecated)
 
@@ -22,7 +22,7 @@ If you see messages like these in your logs, follow this guide to migrate:
 ```
 WARN  deprecated: MW_PORT is deprecated, use OAUTH_PORT instead
 WARN  deprecated: MW_CREDSETUPFILE is deprecated, use OAUTH_CREDS_FILE instead
-WARN  deprecated: --set oas.port is deprecated, use --port instead
+WARN  deprecated: --set oacp.port is deprecated, use --port instead
 WARN  deprecated: app.yaml config file is deprecated, use --config and env vars directly
 ```
 
@@ -52,7 +52,7 @@ env:
 
 **Before (internal beta):**
 ```bash
-/oauth2-auth-code-proxy --set oas.port=30045 --set oas.credSetupFile=/path/to/creds.yaml
+/oauth2-auth-code-proxy --set oacp.port=30045 --set oacp.credSetupFile=/path/to/creds.yaml
 ```
 
 **After (v1.15):**
@@ -71,7 +71,7 @@ port: "30045"
 credSetupFile: /path/to/creds.yaml
 ```
 ```bash
-/oauth2-auth-code-proxy --set oas.appFile=/path/to/app.yaml
+/oauth2-auth-code-proxy --set oacp.appFile=/path/to/app.yaml
 ```
 
 **After (v1.15):**
@@ -135,7 +135,7 @@ No `MW_*` environment variables are needed in the Helm deployment.
 During migration, you may have both old and new config sources active. Later sources override earlier ones:
 
 1. Built-in defaults (port=30045)
-2. `--set oas.*` CLI flags (deprecated)
+2. `--set oacp.*` CLI flags (deprecated)
 3. `MW_*` environment variables (deprecated)
 4. App YAML file (deprecated)
 5. `--port` / `--config` CLI flags

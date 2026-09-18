@@ -77,6 +77,6 @@ func TestRun_LegacyHelp(t *testing.T) {
 	err := Run(context.Background(), []string{"cmd", "--legacy"}, func(string) string { return "" }, &buf)
 	r.NoError(err)
 	r.Contains(buf.String(), "Legacy Settings")
-	r.Contains(buf.String(), "oas.port")
+	r.Contains(buf.String(), "oacp.port")
 	r.Contains(buf.String(), "MW_PORT")
 }
