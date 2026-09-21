@@ -61,16 +61,9 @@
             "fuzzy": true
         },
         {
-            "id": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
-            "message": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
-            "translation": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--mwlegacy-enabled=false     Disable legacy API listener",
-            "message": "--mwlegacy-enabled=false     Disable legacy API listener",
-            "translation": "--mwlegacy-enabled=false     Disable legacy API listener",
+            "id": "--mwlegacy-port <port>       Enable legacy API on this port",
+            "message": "--mwlegacy-port <port>       Enable legacy API on this port",
+            "translation": "--mwlegacy-port <port>       Enable legacy API on this port",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -96,13 +89,6 @@
             "fuzzy": true
         },
         {
-            "id": "--legacy                     Show legacy configuration options",
-            "message": "--legacy                     Show legacy configuration options",
-            "translation": "--legacy                     Show legacy configuration options",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
             "id": "Environment Variables:",
             "message": "Environment Variables:",
             "translation": "Environment Variables:",
@@ -124,16 +110,9 @@
             "fuzzy": true
         },
         {
-            "id": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
-            "message": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
-            "translation": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
-            "message": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
-            "translation": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
+            "id": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
+            "message": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
+            "translation": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -162,90 +141,6 @@
             "id": "LANG                         Locale for help output (en-US, fr-FR)",
             "message": "LANG                         Locale for help output (en-US, fr-FR)",
             "translation": "LANG                         Locale for help output (en-US, fr-FR)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "The legacy API listener is enabled by default on port 30045.",
-            "message": "The legacy API listener is enabled by default on port 30045.",
-            "translation": "The legacy API listener is enabled by default on port 30045.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
-            "message": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
-            "translation": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Legacy Settings (--set):",
-            "message": "Legacy Settings (--set):",
-            "translation": "Legacy Settings (--set):",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Settings prefixed with oacp. are deprecated but supported",
-            "message": "Settings prefixed with oacp. are deprecated but supported",
-            "translation": "Settings prefixed with oacp. are deprecated but supported",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "for backward compatibility.",
-            "message": "for backward compatibility.",
-            "translation": "for backward compatibility.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "message": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "translation": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
-            "message": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
-            "translation": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--set oacp.appFile=<path>                     App config file (deprecated)",
-            "message": "--set oacp.appFile=<path>                     App config file (deprecated)",
-            "translation": "--set oacp.appFile=<path>                     App config file (deprecated)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Legacy Environment Variables:",
-            "message": "Legacy Environment Variables:",
-            "translation": "Legacy Environment Variables:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
-            "message": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
-            "translation": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
-            "message": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
-            "translation": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "MW_APPFILE                   App config file (deprecated)",
-            "message": "MW_APPFILE                   App config file (deprecated)",
-            "translation": "MW_APPFILE                   App config file (deprecated)",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

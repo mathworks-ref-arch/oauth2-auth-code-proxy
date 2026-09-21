@@ -82,7 +82,8 @@ Run it directly:
 | Flag | Description | Default |
 |------|-------------|---------|
 | `--config <path>` | Path to credentials YAML file | (required) |
-| `--port <port>` | Listen port | `30045` |
+| `--port <port>` | Listen port | `80` |
+| `--mwlegacy-port <port>` | Enable legacy API listener on this port | (disabled) |
 | `--tls-cert <path>` | TLS certificate for HTTPS serving | (none — serves HTTP) |
 | `--tls-key <path>` | TLS private key for HTTPS serving | (none — serves HTTP) |
 | `--tls-insecure-skip-verify` | Disable TLS certificate validation for outbound calls | `false` |
@@ -154,42 +155,11 @@ The JSON response tells you what to put in `nameKey` and `emailKey`.
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `OAUTH_CREDS_FILE` | Path to credentials YAML inside container | (required) |
-| `OAUTH_PORT` | Listen port | `30045` |
+| `OAUTH_PORT` | Listen port | `80` |
+| `OAUTH_MWLEGACY_PORT` | Enable legacy API listener on this port | (disabled) |
 | `OAUTH_TLS_CERT_FILE` | TLS certificate for HTTPS serving | (none — serves HTTP) |
 | `OAUTH_TLS_KEY_FILE` | TLS private key for HTTPS serving | (none — serves HTTP) |
 | `OAUTH_TLS_INSECURE_SKIP_VERIFY` | Set `1` or `true` to skip TLS verify on outbound calls | `false` |
-
-<details>
-<summary>Prior Release Configuration (deprecated — will be removed in a future release)</summary>
-
-For backwards compatibility with prior internal releases, the following environment variables are also supported. **These emit deprecation warnings at startup and will be removed in a future release.** Migrate to `OAUTH_*` env vars and `--config`/`--port` flags.
-
-| Variable | Replacement | Description |
-|----------|-------------|-------------|
-| `MW_PORT` | `OAUTH_PORT` | HTTP listen port |
-| `MW_CREDSETUPFILE` | `OAUTH_CREDS_FILE` | Path to credentials YAML |
-| `MW_APPFILE` | `--config` | Path to app.yaml config file |
-
-The `--set oacp.*` CLI flag pattern from previous versions is also supported:
-
-```bash
---set oacp.port=30045        # use --port instead
---set oacp.credSetupFile=... # use --config instead
---set oacp.appFile=...       # use --config and env vars directly
-```
-
-#### Configuration Loading Precedence
-
-When multiple configuration sources are present, later sources override earlier ones:
-
-1. Built-in defaults (port=30045)
-2. `--set oacp.*` CLI flags (deprecated)
-3. `MW_*` environment variables (deprecated)
-4. App YAML file (deprecated)
-5. `--port` / `--config` CLI flags
-6. `OAUTH_*` environment variables (highest priority)
-
-</details>
 
 ### Custom Redirect Page (optional)
 

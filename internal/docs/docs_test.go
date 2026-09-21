@@ -102,7 +102,7 @@ func TestDocs_REST_MWLegacyEnabled_ShowsCrossLink(t *testing.T) {
 	a := assert.New(t)
 
 	d := &docsHandler{prefix: "/v1", listenCfg: domain.ListenConfig{
-		RESTPort: "80", MWLegacyPort: "30045", MWLegacyEnabled: true,
+		RESTPort: "80", MWLegacyPort: "30045",
 	}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /v1/docs", d.handleDocs)
@@ -123,7 +123,7 @@ func TestDocs_BetaDisabled_NoCrossLink(t *testing.T) {
 	a := assert.New(t)
 
 	d := &docsHandler{prefix: "/v1", listenCfg: domain.ListenConfig{
-		RESTPort: "80", MWLegacyPort: "30045", MWLegacyEnabled: false,
+		RESTPort: "80",
 	}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /v1/docs", d.handleDocs)

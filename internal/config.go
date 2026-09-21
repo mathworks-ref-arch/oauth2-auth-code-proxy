@@ -20,17 +20,18 @@ import (
 type Config struct {
 	Port                      string        `json:"port"`
 	MWLegacyPort              string        `json:"mwlegacyPort"`
-	MWLegacyEnabled           bool          `json:"mwlegacyEnabled"`
-	CredSetupFile             string        `json:"credSetupFile"`
-	TLSCertFile               string        `json:"tlsCertFile"`
-	TLSKeyFile                string        `json:"tlsKeyFile"`
-	MWLegacyTLSDisabled       bool          `json:"mwlegacyTlsDisabled"`
-	TLSInsecureSkipVerify     bool          `json:"tlsInsecureSkipVerify"`
+	CredSetupFile         string        `json:"credSetupFile"`
+	TLSCertFile           string        `json:"tlsCertFile"`
+	TLSKeyFile            string        `json:"tlsKeyFile"`
+	TLSInsecureSkipVerify bool          `json:"tlsInsecureSkipVerify"`
 	HTTPClientTimeout         time.Duration `json:"httpClientTimeout"`
 	HTTPResponseHeaderTimeout time.Duration `json:"httpResponseHeaderTimeout"`
 	HTTPIdleConnTimeout       time.Duration `json:"httpIdleConnTimeout"`
 	HTTPTLSHandshakeTimeout   time.Duration `json:"httpTLSHandshakeTimeout"`
-	AppFile                   string        `json:"-"`
+}
+
+func (c *Config) MWLegacyEnabled() bool {
+	return c.MWLegacyPort != ""
 }
 
 type AppConfig = domain.AppConfig
@@ -40,8 +41,6 @@ type AppInfo = domain.AppInfo
 func DefaultConfig() Config {
 	return Config{
 		Port:                      "80",
-		MWLegacyPort:              "30045",
-		MWLegacyEnabled:           true,
 		HTTPClientTimeout:         30 * time.Second,
 		HTTPResponseHeaderTimeout: 10 * time.Second,
 		HTTPIdleConnTimeout:       90 * time.Second,
@@ -49,17 +48,10 @@ func DefaultConfig() Config {
 	}
 }
 
-func LoadConfig(args []string, getenv func(string) string, logger *zap.Logger) (*Config, error) {
+func LoadConfig(args []string, getenv func(string) string) (*Config, error) {
 	cfg := DefaultConfig()
 
-	loadConfigFromSetArgs(&cfg, args, logger)
-	loadConfigFromMWEnv(&cfg, getenv, logger)
-
-	if err := loadConfigFromAppFile(&cfg, getenv, logger); err != nil {
-		return nil, err
-	}
-
-	loadConfigFromNewArgs(&cfg, args)
+	loadConfigFromArgs(&cfg, args)
 	loadConfigFromEnv(&cfg, getenv)
 
 	if err := validatePorts(&cfg); err != nil {
@@ -70,48 +62,17 @@ func LoadConfig(args []string, getenv func(string) string, logger *zap.Logger) (
 }
 
 func validatePorts(cfg *Config) error {
-	if cfg.MWLegacyEnabled && cfg.Port == cfg.MWLegacyPort && cfg.Port != "0" {
-		return fmt.Errorf("port and mwlegacy-port cannot be the same when mwlegacy is enabled")
+	if cfg.MWLegacyEnabled() && cfg.Port == cfg.MWLegacyPort && cfg.Port != "0" {
+		return fmt.Errorf("port and mwlegacy-port cannot be the same")
 	}
 	return nil
 }
 
-func loadConfigFromSetArgs(cfg *Config, args []string, logger *zap.Logger) {
-	for i := 1; i < len(args); i++ {
-		if strings.HasPrefix(args[i], "--set") && i+1 < len(args) {
-			i++
-			parseSetArg(cfg, args[i])
-			logSetArgDeprecation(logger, args[i])
-		}
-	}
-}
-
-func logSetArgDeprecation(logger *zap.Logger, arg string) {
-	parts := strings.SplitN(arg, "=", 2)
-
-	if key, found := strings.CutPrefix(parts[0], "oacp."); found {
-		switch key {
-		case "port":
-			logger.Warn("deprecated: --set oacp.port is deprecated, use --mwlegacy-port instead")
-		case "credSetupFile":
-			logger.Warn("deprecated: --set oacp.credSetupFile is deprecated, use --config instead")
-		case "appFile":
-			logger.Warn("deprecated: --set oacp.appFile is deprecated, use --config and env vars directly")
-		}
-		return
-	}
-
-}
-
-func loadConfigFromNewArgs(cfg *Config, args []string) {
+func loadConfigFromArgs(cfg *Config, args []string) {
 	for i := 1; i < len(args); i++ {
 		switch args[i] {
-		case "--tls-disabled":
-			cfg.MWLegacyTLSDisabled = true
 		case "--tls-insecure-skip-verify":
 			cfg.TLSInsecureSkipVerify = true
-		case "--mwlegacy-enabled=false":
-			cfg.MWLegacyEnabled = false
 		default:
 			if v, ok := consumeValueArg(args, &i); ok {
 				applyValueArg(cfg, args[i-1], v)
@@ -131,7 +92,6 @@ func consumeValueArg(args []string, i *int) (string, bool) {
 	case strings.HasPrefix(arg, "--config"):
 	case strings.HasPrefix(arg, "--tls-cert"):
 	case strings.HasPrefix(arg, "--tls-key"):
-	case strings.HasPrefix(arg, "--set"):
 	default:
 		return "", false
 	}
@@ -154,97 +114,7 @@ func applyValueArg(cfg *Config, flag string, val string) {
 	}
 }
 
-func loadConfigFromMWEnv(cfg *Config, getenv func(string) string, logger *zap.Logger) {
-	if v := getenv("MW_PORT"); v != "" {
-		cfg.MWLegacyPort = v
-		logger.Warn("deprecated: MW_PORT is deprecated, use OAUTH_MWLEGACY_PORT instead")
-	}
-	if v := getenv("MW_CREDSETUPFILE"); v != "" {
-		cfg.CredSetupFile = v
-		logger.Warn("deprecated: MW_CREDSETUPFILE is deprecated, use OAUTH_CREDS_FILE instead")
-	}
-	if v := getenv("MW_APPFILE"); v != "" {
-		cfg.AppFile = v
-		logger.Warn("deprecated: MW_APPFILE is deprecated, use --config and env vars directly")
-	}
-}
-
-type appFileConfig struct {
-	Port          string `yaml:"port"`
-	CredSetupFile string `yaml:"credSetupFile"`
-}
-
-func loadConfigFromAppFile(cfg *Config, getenv func(string) string, logger *zap.Logger) error {
-	if cfg.AppFile == "" {
-		if v := getenv("MW_APPFILE"); v != "" {
-			cfg.AppFile = v
-		}
-	}
-	if cfg.AppFile == "" {
-		return nil
-	}
-
-	data, err := readFile(cfg.AppFile)
-	if err != nil {
-		return fmt.Errorf("read app file %s: %w", cfg.AppFile, err)
-	}
-
-	var fc appFileConfig
-	if err := yaml.Unmarshal(data, &fc); err != nil {
-		return fmt.Errorf("parse app file %s: %w", cfg.AppFile, err)
-	}
-
-	if fc.Port != "" {
-		cfg.MWLegacyPort = fc.Port
-	}
-	if fc.CredSetupFile != "" {
-		cfg.CredSetupFile = fc.CredSetupFile
-	}
-
-	logger.Warn("deprecated: app.yaml config file is deprecated, use --config and env vars directly",
-		zap.String("path", cfg.AppFile))
-	return nil
-}
-
-func parseSetArg(cfg *Config, arg string) {
-	parts := strings.SplitN(arg, "=", 2)
-	val := ""
-	if len(parts) == 2 {
-		val = parts[1]
-	}
-
-	if key, found := strings.CutPrefix(parts[0], "oacp."); found {
-		parseOASSetArg(cfg, key, val)
-		return
-	}
-
-}
-
-func parseOASSetArg(cfg *Config, key string, val string) {
-	switch key {
-	case "port":
-		cfg.MWLegacyPort = val
-	case "credSetupFile":
-		cfg.CredSetupFile = val
-	case "appFile":
-		cfg.AppFile = val
-	}
-}
-
 func loadConfigFromEnv(cfg *Config, getenv func(string) string) {
-	loadStringEnvVars(cfg, getenv)
-	if v := getenv("OAUTH_MWLEGACY_ENABLED"); v == "0" || v == "false" {
-		cfg.MWLegacyEnabled = false
-	}
-	if v := getenv("OAUTH_TLS_INSECURE_SKIP_VERIFY"); v == "1" || v == "true" {
-		cfg.TLSInsecureSkipVerify = true
-	}
-	if v := getenv("OAUTH_TLS_DISABLED"); v == "1" || v == "true" {
-		cfg.MWLegacyTLSDisabled = true
-	}
-}
-
-func loadStringEnvVars(cfg *Config, getenv func(string) string) {
 	if v := getenv("OAUTH_PORT"); v != "" {
 		cfg.Port = v
 	}
@@ -259,6 +129,9 @@ func loadStringEnvVars(cfg *Config, getenv func(string) string) {
 	}
 	if v := getenv("OAUTH_TLS_KEY_FILE"); v != "" {
 		cfg.TLSKeyFile = v
+	}
+	if v := getenv("OAUTH_TLS_INSECURE_SKIP_VERIFY"); v == "1" || v == "true" {
+		cfg.TLSInsecureSkipVerify = true
 	}
 }
 

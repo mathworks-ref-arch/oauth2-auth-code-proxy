@@ -47,14 +47,9 @@
             "translation": "--port <port>                Port d'écoute API REST (défaut : 80)"
         },
         {
-            "id": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
-            "message": "--mwlegacy-port <port>       Legacy API listen port (default: 30045)",
-            "translation": "--mwlegacy-port <port>       Port d'écoute API legacy (défaut : 30045)"
-        },
-        {
-            "id": "--mwlegacy-enabled=false     Disable legacy API listener",
-            "message": "--mwlegacy-enabled=false     Disable legacy API listener",
-            "translation": "--mwlegacy-enabled=false     Désactiver l'écouteur API legacy"
+            "id": "--mwlegacy-port <port>       Enable legacy API on this port",
+            "message": "--mwlegacy-port <port>       Enable legacy API on this port",
+            "translation": "--mwlegacy-port <port>       Activer l'API legacy sur ce port"
         },
         {
             "id": "--tls-cert <path>            TLS certificate for HTTPS serving",
@@ -72,11 +67,6 @@
             "translation": "--tls-insecure-skip-verify   Ignorer la vérification TLS sur les appels sortants"
         },
         {
-            "id": "--legacy                     Show legacy configuration options",
-            "message": "--legacy                     Show legacy configuration options",
-            "translation": "--legacy                     Afficher les options de configuration legacy"
-        },
-        {
             "id": "Environment Variables:",
             "message": "Environment Variables:",
             "translation": "Variables d'environnement :"
@@ -92,14 +82,9 @@
             "translation": "OAUTH_PORT                   Port API REST (défaut : 80)"
         },
         {
-            "id": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
-            "message": "OAUTH_MWLEGACY_PORT          Legacy API port (default: 30045)",
-            "translation": "OAUTH_MWLEGACY_PORT          Port API legacy (défaut : 30045)"
-        },
-        {
-            "id": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
-            "message": "OAUTH_MWLEGACY_ENABLED       Set false to disable legacy API",
-            "translation": "OAUTH_MWLEGACY_ENABLED       Mettre à false pour désactiver l'API legacy"
+            "id": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
+            "message": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
+            "translation": "OAUTH_MWLEGACY_PORT          Activer l'API legacy sur ce port"
         },
         {
             "id": "OAUTH_TLS_CERT_FILE          TLS certificate path",
@@ -120,66 +105,6 @@
             "id": "LANG                         Locale for help output (en-US, fr-FR)",
             "message": "LANG                         Locale for help output (en-US, fr-FR)",
             "translation": "LANG                         Langue de l'aide (en-US, fr-FR)"
-        },
-        {
-            "id": "The legacy API listener is enabled by default on port 30045.",
-            "message": "The legacy API listener is enabled by default on port 30045.",
-            "translation": "L'écouteur API legacy est activé par défaut sur le port 30045."
-        },
-        {
-            "id": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
-            "message": "Use --mwlegacy-enabled=false to disable, or --legacy for legacy options.",
-            "translation": "Utilisez --mwlegacy-enabled=false pour désactiver, ou --legacy pour les options legacy."
-        },
-        {
-            "id": "Legacy Settings (--set):",
-            "message": "Legacy Settings (--set):",
-            "translation": "Paramètres legacy (--set) :"
-        },
-        {
-            "id": "Settings prefixed with oacp. are deprecated but supported",
-            "message": "Settings prefixed with oacp. are deprecated but supported",
-            "translation": "Les paramètres préfixés par oacp. sont obsolètes mais supportés"
-        },
-        {
-            "id": "for backward compatibility.",
-            "message": "for backward compatibility.",
-            "translation": "pour la rétrocompatibilité."
-        },
-        {
-            "id": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "message": "--set oacp.port=<port>                       Legacy API port (use --mwlegacy-port)",
-            "translation": "--set oacp.port=<port>                       Port API legacy (utiliser --mwlegacy-port)"
-        },
-        {
-            "id": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
-            "message": "--set oacp.credSetupFile=<path>               Credentials file (use --config)",
-            "translation": "--set oacp.credSetupFile=<chemin>             Fichier identifiants (utiliser --config)"
-        },
-        {
-            "id": "--set oacp.appFile=<path>                     App config file (deprecated)",
-            "message": "--set oacp.appFile=<path>                     App config file (deprecated)",
-            "translation": "--set oacp.appFile=<chemin>                   Fichier config app (obsolète)"
-        },
-        {
-            "id": "Legacy Environment Variables:",
-            "message": "Legacy Environment Variables:",
-            "translation": "Variables d'environnement legacy :"
-        },
-        {
-            "id": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
-            "message": "MW_PORT                      Legacy API port (use OAUTH_MWLEGACY_PORT)",
-            "translation": "MW_PORT                      Port API legacy (utiliser OAUTH_MWLEGACY_PORT)"
-        },
-        {
-            "id": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
-            "message": "MW_CREDSETUPFILE             Credentials file (use OAUTH_CREDS_FILE)",
-            "translation": "MW_CREDSETUPFILE             Fichier identifiants (utiliser OAUTH_CREDS_FILE)"
-        },
-        {
-            "id": "MW_APPFILE                   App config file (deprecated)",
-            "message": "MW_APPFILE                   App config file (deprecated)",
-            "translation": "MW_APPFILE                   Fichier config app (obsolète)"
         },
         {
             "id": "Examples:",

@@ -227,7 +227,7 @@ func (d *docsHandler) handleDocs(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *docsHandler) buildDocsLink(r *http.Request) string {
-	if !d.listenCfg.MWLegacyEnabled {
+	if !d.listenCfg.MWLegacyEnabled() {
 		return ""
 	}
 

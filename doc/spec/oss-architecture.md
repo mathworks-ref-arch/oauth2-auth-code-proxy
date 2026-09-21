@@ -114,7 +114,7 @@ type OAuthService interface {
 
 Both share identical middleware (security headers, panic recovery, request logging, 1MB body limit).
 
-**Single-port mode:** When `--mwlegacy-enabled=false`, only the REST handler starts. It binds to `--port` (default 30045), not `--rest-port`. This makes `--port` the universal "listen port" flag regardless of mode.
+**Single-port mode:** By default, only the REST handler starts on `--port` (default 80). Use `--mwlegacy-port <port>` to enable the legacy API listener on a separate port.
 
 ## 4. HTTP API Reference
 
@@ -364,7 +364,7 @@ Swagger UI assets are loaded from the unpkg.com CDN. The `/docs` page requires o
 | `--config` | Path to credentials YAML file | (required) |
 | `--port` | Listen port; applies to REST when mwlegacy disabled, legacy when enabled | 30045 |
 | `--rest-port` | REST API port (only used when mwlegacy is enabled) | 80 |
-| `--mwlegacy-enabled` | Enable compatibility API on separate port | true |
+| `--mwlegacy-port` | Enable compatibility API on this port | (disabled) |
 | `--tls-cert` | TLS certificate path | (none — serves HTTP) |
 | `--tls-key` | TLS private key path | (none — serves HTTP) |
 | `--tls-insecure-skip-verify` | Skip TLS verification on outbound calls | false |
@@ -376,7 +376,7 @@ Swagger UI assets are loaded from the unpkg.com CDN. The `/docs` page requires o
 | `OAUTH_CREDS_FILE` | Credentials file path | (none) |
 | `OAUTH_REST_PORT` | REST API port | 80 |
 | `OAUTH_PORT` | Compatibility API port | 30045 |
-| `OAUTH_MWLEGACY_ENABLED` | Enable compatibility API (true/false) | true |
+| `OAUTH_MWLEGACY_PORT` | Enable compatibility API on this port | (disabled) |
 | `OAUTH_TLS_CERT_FILE` | TLS certificate path | (none) |
 | `OAUTH_TLS_KEY_FILE` | TLS private key path | (none) |
 | `OAUTH_TLS_INSECURE_SKIP_VERIFY` | Skip outbound TLS verification (1/true) | false |
@@ -396,7 +396,7 @@ Environment variables override CLI flags. This is intentional for container orch
 ### Constraints
 
 - `--port` and `--rest-port` cannot be the same value when mwlegacy is enabled
-- When `--mwlegacy-enabled=false`, `--port` is used for REST (ignoring `--rest-port`)
+- When `--mwlegacy-port` is not set, only the REST listener starts on `--port`
 
 ### Credentials File Format
 

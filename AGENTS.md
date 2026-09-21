@@ -17,7 +17,7 @@ OAuth2 token exchange proxy for MATLAB&reg; and MathWorks desktop clients. Handl
 | File | Responsibility |
 |------|---------------|
 | `doc.go` | OpenAPI metadata annotations (swag v2) |
-| `config.go` | Config struct, CLI flags, env vars, creds.yaml loading (includes deprecated MW_*/--set oacp.* paths with warnings) |
+| `config.go` | Config struct, CLI flags, env vars, creds.yaml loading |
 | `oauth.go` | OAuthService interface + impl (Authorize, Token, Refresh, List) |
 | `jwt.go` | Base64url JWT decode (no verification — claims extraction only) |
 | `userinfo.go` | User identity extraction from id_token or userinfo endpoint |

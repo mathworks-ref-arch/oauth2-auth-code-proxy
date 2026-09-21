@@ -114,11 +114,14 @@ type HTTPClientConfig struct {
 }
 
 type ListenConfig struct {
-	RESTPort        string
-	MWLegacyPort    string
-	MWLegacyEnabled bool
-	TLSCert         string
-	TLSKey          string
+	RESTPort     string
+	MWLegacyPort string
+	TLSCert      string
+	TLSKey       string
+}
+
+func (c ListenConfig) MWLegacyEnabled() bool {
+	return c.MWLegacyPort != ""
 }
 
 type BuildInfo struct {

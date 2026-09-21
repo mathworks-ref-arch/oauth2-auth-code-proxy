@@ -69,7 +69,7 @@ func newTestServer() *Server {
 		logger: zap.NewNop(),
 		health: hc,
 		listenCfg: domain.ListenConfig{
-			RESTPort: "80", MWLegacyPort: "30045", MWLegacyEnabled: true,
+			RESTPort: "80", MWLegacyPort: "30045",
 		},
 	}
 }

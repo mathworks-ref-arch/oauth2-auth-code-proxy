@@ -108,7 +108,7 @@ func (s *Server) ListenAndServe(ctx context.Context, cfg domain.ListenConfig) er
 	restSrv := s.startHTTP("REST API", cfg.RESTPort, s.RESTHandler(), cfg, errCh)
 
 	var legacySrv *http.Server
-	if cfg.MWLegacyEnabled {
+	if cfg.MWLegacyEnabled() {
 		legacySrv = s.startHTTP("legacy API", cfg.MWLegacyPort, s.MWLegacyHandler(), cfg, errCh)
 	}
 

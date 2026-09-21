@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"slices"
 
 	proxy "github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/internal"
 	"github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/internal/domain"
@@ -26,7 +27,7 @@ func Run(ctx context.Context, args []string, getenv func(string) string, stdout 
 	}
 	defer logger.Sync() //nolint:errcheck
 
-	cfg, err := proxy.LoadConfig(args, getenv, logger)
+	cfg, err := proxy.LoadConfig(args, getenv)
 	if err != nil {
 		return fmt.Errorf("load config: %w", err)
 	}
@@ -55,16 +56,12 @@ func Run(ctx context.Context, args []string, getenv func(string) string, stdout 
 	svc := proxy.NewOAuthService(apps, httpCfg, logger.Named("oauth"))
 	server := NewServer(svc, apps, buildInfo(), logger.Named("server"))
 
-	return server.ListenAndServe(ctx, listenConfig(cfg, logger))
+	return server.ListenAndServe(ctx, listenConfig(cfg))
 }
 
 func handleHelpFlags(args []string, getenv func(string) string, stdout io.Writer) bool {
 	if hasArg(args, "--help") || hasArg(args, "-h") || (len(args) == 1 && getenv("OAUTH_CREDS_FILE") == "") {
 		proxy.PrintHelp(stdout, getenv("LANG"), Version)
-		return true
-	}
-	if hasArg(args, "--legacy") {
-		proxy.PrintHelpLegacy(stdout, getenv("LANG"), Version)
 		return true
 	}
 	return false
@@ -79,28 +76,15 @@ func buildInfo() domain.BuildInfo {
 	}
 }
 
-func listenConfig(cfg *proxy.Config, logger *zap.Logger) domain.ListenConfig {
-	tlsCert := cfg.TLSCertFile
-	tlsKey := cfg.TLSKeyFile
-	if cfg.MWLegacyTLSDisabled {
-		tlsCert = ""
-		tlsKey = ""
-		logger.Warn("TLS disabled via --tls-disabled")
-	}
+func listenConfig(cfg *proxy.Config) domain.ListenConfig {
 	return domain.ListenConfig{
-		RESTPort:        cfg.Port,
-		MWLegacyPort:    cfg.MWLegacyPort,
-		MWLegacyEnabled: cfg.MWLegacyEnabled,
-		TLSCert:         tlsCert,
-		TLSKey:          tlsKey,
+		RESTPort:     cfg.Port,
+		MWLegacyPort: cfg.MWLegacyPort,
+		TLSCert:      cfg.TLSCertFile,
+		TLSKey:       cfg.TLSKeyFile,
 	}
 }
 
 func hasArg(args []string, flag string) bool {
-	for _, a := range args {
-		if a == flag {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(args, flag)
 }

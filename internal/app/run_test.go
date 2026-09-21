@@ -57,7 +57,7 @@ func TestRun_ValidConfigStartsServer(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 
-	err := Run(ctx, []string{"cmd", "--config", "../testdata/creds.yaml", "--port", "0", "--mwlegacy-port", "0"}, func(string) string { return "" }, &buf)
+	err := Run(ctx, []string{"cmd", "--config", "../testdata/creds.yaml", "--port", "0"}, func(string) string { return "" }, &buf)
 	r.NoError(err)
 }
 
@@ -68,15 +68,4 @@ func TestRun_PortConflict(t *testing.T) {
 	err := Run(context.Background(), []string{"cmd", "--config", "../testdata/creds.yaml", "--port", "9999", "--mwlegacy-port", "9999"}, func(string) string { return "" }, &buf)
 	r.Error(err)
 	r.Contains(err.Error(), "cannot be the same")
-}
-
-func TestRun_LegacyHelp(t *testing.T) {
-	r := require.New(t)
-	var buf bytes.Buffer
-
-	err := Run(context.Background(), []string{"cmd", "--legacy"}, func(string) string { return "" }, &buf)
-	r.NoError(err)
-	r.Contains(buf.String(), "Legacy Settings")
-	r.Contains(buf.String(), "oacp.port")
-	r.Contains(buf.String(), "MW_PORT")
 }
