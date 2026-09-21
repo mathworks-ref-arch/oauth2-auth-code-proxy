@@ -120,6 +120,7 @@ func getStrings(lang string) *helpStrings {
 	return &defaultStrings
 }
 
+//nolint:errcheck
 func PrintHelp(w io.Writer, lang string, ver string) {
 	s := getStrings(lang)
 
