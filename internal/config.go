@@ -20,10 +20,10 @@ import (
 type Config struct {
 	Port                      string        `json:"port"`
 	MWLegacyPort              string        `json:"mwlegacyPort"`
-	CredSetupFile         string        `json:"credSetupFile"`
-	TLSCertFile           string        `json:"tlsCertFile"`
-	TLSKeyFile            string        `json:"tlsKeyFile"`
-	TLSInsecureSkipVerify bool          `json:"tlsInsecureSkipVerify"`
+	CredSetupFile             string        `json:"credSetupFile"`
+	TLSCertFile               string        `json:"tlsCertFile"`
+	TLSKeyFile                string        `json:"tlsKeyFile"`
+	TLSInsecureSkipVerify     bool          `json:"tlsInsecureSkipVerify"`
 	HTTPClientTimeout         time.Duration `json:"httpClientTimeout"`
 	HTTPResponseHeaderTimeout time.Duration `json:"httpResponseHeaderTimeout"`
 	HTTPIdleConnTimeout       time.Duration `json:"httpIdleConnTimeout"`

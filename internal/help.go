@@ -54,10 +54,10 @@ var defaultStrings = helpStrings{
 	copyright:   "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
 	license:     "Governed by the MathWorks Cloud Reference Architecture License.",
 
-	optConfig:     "  --config <path>              Credentials YAML file (required)",
-	optPort:       "  --port <port>                REST API listen port (default: 80)",
-	optMWLegacy:   "  --mwlegacy-port <port>       Enable legacy API on this port",
-	optTLSCert:    "  --tls-cert <path>            TLS certificate for HTTPS serving",
+	optConfig:      "  --config <path>              Credentials YAML file (required)",
+	optPort:        "  --port <port>                REST API listen port (default: 80)",
+	optMWLegacy:    "  --mwlegacy-port <port>       Enable legacy API on this port",
+	optTLSCert:     "  --tls-cert <path>            TLS certificate for HTTPS serving",
 	optTLSKey:      "  --tls-key <path>             TLS private key for HTTPS serving",
 	optTLSInsecure: "  --tls-insecure-skip-verify   Skip TLS verify on outbound calls",
 
