@@ -2,229 +2,23 @@
     "language": "en-US",
     "messages": [
         {
-            "id": "OAuth2 Token Proxy (v{Ver})",
-            "message": "OAuth2 Token Proxy (v{Ver})",
-            "translation": "OAuth2 Token Proxy (v{Ver})",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Ver",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "ver"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
-            "message": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
-            "translation": "OAuth2 token exchange proxy for desktop clients. Handles the server-side\nOAuth2 authorization code flow with PKCE so desktop applications can\nauthenticate with third-party cloud providers without embedding client secrets.",
+            "id": "OAuth2 Redirect",
+            "message": "OAuth2 Redirect",
+            "translation": "OAuth2 Redirect",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "Usage:",
-            "message": "Usage:",
-            "translation": "Usage:",
+            "id": "Authentication complete. You may close this tab.",
+            "message": "Authentication complete. You may close this tab.",
+            "translation": "Authentication complete. You may close this tab.",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
-            "message": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
-            "translation": "oauth2-auth-code-proxy --config <creds.yaml> [options]",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Options:",
-            "message": "Options:",
-            "translation": "Options:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--config <path>              Credentials YAML file (required)",
-            "message": "--config <path>              Credentials YAML file (required)",
-            "translation": "--config <path>              Credentials YAML file (required)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--port <port>                REST API listen port (default: 80)",
-            "message": "--port <port>                REST API listen port (default: 80)",
-            "translation": "--port <port>                REST API listen port (default: 80)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--mwlegacy-port <port>       Enable legacy API on this port",
-            "message": "--mwlegacy-port <port>       Enable legacy API on this port",
-            "translation": "--mwlegacy-port <port>       Enable legacy API on this port",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--tls-cert <path>            TLS certificate for HTTPS serving",
-            "message": "--tls-cert <path>            TLS certificate for HTTPS serving",
-            "translation": "--tls-cert <path>            TLS certificate for HTTPS serving",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--tls-key <path>             TLS private key for HTTPS serving",
-            "message": "--tls-key <path>             TLS private key for HTTPS serving",
-            "translation": "--tls-key <path>             TLS private key for HTTPS serving",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
-            "message": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
-            "translation": "--tls-insecure-skip-verify   Skip TLS verify on outbound calls",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Environment Variables:",
-            "message": "Environment Variables:",
-            "translation": "Environment Variables:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_CREDS_FILE             Credentials YAML file path",
-            "message": "OAUTH_CREDS_FILE             Credentials YAML file path",
-            "translation": "OAUTH_CREDS_FILE             Credentials YAML file path",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_PORT                   REST API port (default: 80)",
-            "message": "OAUTH_PORT                   REST API port (default: 80)",
-            "translation": "OAUTH_PORT                   REST API port (default: 80)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
-            "message": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
-            "translation": "OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_TLS_CERT_FILE          TLS certificate path",
-            "message": "OAUTH_TLS_CERT_FILE          TLS certificate path",
-            "translation": "OAUTH_TLS_CERT_FILE          TLS certificate path",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_TLS_KEY_FILE           TLS private key path",
-            "message": "OAUTH_TLS_KEY_FILE           TLS private key path",
-            "translation": "OAUTH_TLS_KEY_FILE           TLS private key path",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
-            "message": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
-            "translation": "OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "LANG                         Locale for help output (en-US, fr-FR)",
-            "message": "LANG                         Locale for help output (en-US, fr-FR)",
-            "translation": "LANG                         Locale for help output (en-US, fr-FR)",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Examples:",
-            "message": "Examples:",
-            "translation": "Examples:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "# Docker with mounted credentials",
-            "message": "# Docker with mounted credentials",
-            "translation": "# Docker with mounted credentials",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "docker run -p 80:80 -p 30045:30045 \\",
-            "message": "docker run -p 80:80 -p 30045:30045 \\",
-            "translation": "docker run -p 80:80 -p 30045:30045 \\",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
-            "message": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
-            "translation": "-v ./creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro \\",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
-            "message": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
-            "translation": "-e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \\",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "oauth2-auth-code-proxy:latest",
-            "message": "oauth2-auth-code-proxy:latest",
-            "translation": "oauth2-auth-code-proxy:latest",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "# Binary with HTTPS",
-            "message": "# Binary with HTTPS",
-            "translation": "# Binary with HTTPS",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
-            "message": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
-            "translation": "oauth2-auth-code-proxy --config creds.yaml --tls-cert tls.crt --tls-key tls.key",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
-            "message": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
-            "translation": "Set LANG environment variable for localized output (e.g., LANG=fr-FR).",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
-            "message": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
-            "translation": "Copyright (c) 2020-2026, The MathWorks, Inc. All rights reserved.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Governed by the MathWorks Cloud Reference Architecture License.",
-            "message": "Governed by the MathWorks Cloud Reference Architecture License.",
-            "translation": "Governed by the MathWorks Cloud Reference Architecture License.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
-            "message": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
-            "translation": "See https://github.com/mathworks-ref-arch/container-images/oauth2-auth-code-proxy/blob/main/LICENSE.md",
+            "id": "Click here if not redirected automatically.",
+            "message": "Click here if not redirected automatically.",
+            "translation": "Click here if not redirected automatically.",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         }
