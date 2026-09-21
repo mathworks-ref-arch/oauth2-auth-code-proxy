@@ -56,14 +56,14 @@ var defaultStrings = helpStrings{
 
 	optConfig:      "  --config <path>              Credentials YAML file (required)",
 	optPort:        "  --port <port>                REST API listen port (default: 80)",
-	optMWLegacy:    "  --mwlegacy-port <port>       Enable legacy API on this port",
+	optMWLegacy:    "  --mwlegacy-port <port>       Also serve POST /oauth/v1/api on this port",
 	optTLSCert:     "  --tls-cert <path>            TLS certificate for HTTPS serving",
 	optTLSKey:      "  --tls-key <path>             TLS private key for HTTPS serving",
 	optTLSInsecure: "  --tls-insecure-skip-verify   Skip TLS verify on outbound calls",
 
 	envCredsFile:   "  OAUTH_CREDS_FILE             Credentials YAML file path",
 	envPort:        "  OAUTH_PORT                   REST API port (default: 80)",
-	envMWLegacy:    "  OAUTH_MWLEGACY_PORT          Enable legacy API on this port",
+	envMWLegacy:    "  OAUTH_MWLEGACY_PORT          Also serve POST /oauth/v1/api on this port",
 	envTLSCert:     "  OAUTH_TLS_CERT_FILE          TLS certificate path",
 	envTLSKey:      "  OAUTH_TLS_KEY_FILE           TLS private key path",
 	envTLSInsecure: "  OAUTH_TLS_INSECURE_SKIP_VERIFY  Set true to skip outbound TLS verify",
@@ -91,14 +91,14 @@ var frenchStrings = helpStrings{
 
 	optConfig:      "  --config <chemin>            Fichier YAML des identifiants (requis)",
 	optPort:        "  --port <port>                Port d'écoute API REST (défaut : 80)",
-	optMWLegacy:    "  --mwlegacy-port <port>       Activer l'API legacy sur ce port",
+	optMWLegacy:    "  --mwlegacy-port <port>       Servir aussi POST /oauth/v1/api sur ce port",
 	optTLSCert:     "  --tls-cert <chemin>          Certificat TLS pour le service HTTPS",
 	optTLSKey:      "  --tls-key <chemin>           Clé privée TLS pour le service HTTPS",
 	optTLSInsecure: "  --tls-insecure-skip-verify   Ignorer la vérification TLS sur les appels sortants",
 
 	envCredsFile:   "  OAUTH_CREDS_FILE             Chemin du fichier YAML des identifiants",
 	envPort:        "  OAUTH_PORT                   Port API REST (défaut : 80)",
-	envMWLegacy:    "  OAUTH_MWLEGACY_PORT          Activer l'API legacy sur ce port",
+	envMWLegacy:    "  OAUTH_MWLEGACY_PORT          Servir aussi POST /oauth/v1/api sur ce port",
 	envTLSCert:     "  OAUTH_TLS_CERT_FILE          Chemin du certificat TLS",
 	envTLSKey:      "  OAUTH_TLS_KEY_FILE           Chemin de la clé privée TLS",
 	envTLSInsecure: "  OAUTH_TLS_INSECURE_SKIP_VERIFY  Mettre à true pour ignorer la vérification TLS sortante",
