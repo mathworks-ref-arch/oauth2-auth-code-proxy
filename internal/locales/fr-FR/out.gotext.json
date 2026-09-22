@@ -1,0 +1,20 @@
+{
+    "language": "fr-FR",
+    "messages": [
+        {
+            "id": "OAuth2 Redirect",
+            "message": "OAuth2 Redirect",
+            "translation": "Redirection OAuth2"
+        },
+        {
+            "id": "Authentication complete. You may close this tab.",
+            "message": "Authentication complete. You may close this tab.",
+            "translation": "Authentification terminée. Vous pouvez fermer cet onglet."
+        },
+        {
+            "id": "Click here if not redirected automatically.",
+            "message": "Click here if not redirected automatically.",
+            "translation": "Cliquez ici si vous n'êtes pas redirigé automatiquement."
+        }
+    ]
+}

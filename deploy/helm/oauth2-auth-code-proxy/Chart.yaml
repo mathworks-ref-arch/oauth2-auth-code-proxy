@@ -1,0 +1,17 @@
+apiVersion: v2
+name: oauth2-auth-code-proxy
+description: OAuth2 token exchange proxy for MATLAB desktop clients
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - oauth2
+  - proxy
+  - matlab
+  - mathworks
+home: https://github.com/mathworks-ref-arch/container-images
+sources:
+  - https://github.com/mathworks-ref-arch/container-images/tree/main/oauth2-auth-code-proxy
+maintainers:
+  - name: MathWorks
+    url: https://www.mathworks.com

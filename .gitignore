@@ -1,0 +1,38 @@
+# Build output
+/oauth2-auth-code-proxy
+/oauth2-token-proxy
+*.exe
+*.test
+*.out
+coverage.html
+coverage-report.txt
+.target/
+
+# Credentials (never commit)
+keys.json
+**/key.json
+*.pem
+*.key
+.env.local
+/creds.yaml
+/certs/
+
+
+# Go workspace (monorepo only)
+go.work
+go.work.sum
+
+# Dependency cache
+vendor/
+
+# IDE
+.idea/
+.history/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# OS
+.DS_Store
+.claude/settings.local.json

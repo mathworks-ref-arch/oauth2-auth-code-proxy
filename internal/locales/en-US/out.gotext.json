@@ -1,0 +1,26 @@
+{
+    "language": "en-US",
+    "messages": [
+        {
+            "id": "OAuth2 Redirect",
+            "message": "OAuth2 Redirect",
+            "translation": "OAuth2 Redirect",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Authentication complete. You may close this tab.",
+            "message": "Authentication complete. You may close this tab.",
+            "translation": "Authentication complete. You may close this tab.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Click here if not redirected automatically.",
+            "message": "Click here if not redirected automatically.",
+            "translation": "Click here if not redirected automatically.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        }
+    ]
+}

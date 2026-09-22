@@ -1,0 +1,134 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build
+        run: go build -o /dev/null .
+
+      - name: Test
+        run: go test -race -count=1 -coverprofile=coverage.out -covermode=atomic -coverpkg=./... ./...
+
+      - name: Generate coverage report
+        run: |
+          go tool cover -func=coverage.out | tee coverage-report.txt
+          go tool cover -html=coverage.out -o coverage.html
+
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//')
+          echo "Total coverage: ${COVERAGE}%"
+          if [ "$(echo "$COVERAGE < 80.0" | bc -l)" -eq 1 ]; then
+            echo "::error::Coverage ${COVERAGE}% is below 80% threshold"
+            exit 1
+          fi
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            coverage.out
+            coverage-report.txt
+            coverage.html
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.out
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install goimports
+        run: go install golang.org/x/tools/cmd/goimports@latest
+
+      - name: Check formatting
+        run: |
+          goimports -w .
+          go fmt ./...
+          if ! git diff --exit-code; then
+            echo "::error::Code is not formatted. Run 'make fmt' and commit the result."
+            exit 1
+          fi
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v7
+        with:
+          version: latest
+          args: --max-issues-per-linter 0 --max-same-issues 0
+
+  cyclo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install gocyclo
+        run: go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+
+      - name: Check cyclomatic complexity
+        run: gocyclo -over 9 ./internal/
+
+  swagger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install swag
+        run: go install github.com/swaggo/swag/v2/cmd/swag@latest
+
+      - name: Generate swagger
+        run: |
+          mkdir -p .target/swagger
+          swag init --v3.1 --generalInfo doc.go --dir ./internal --output .target/swagger --outputTypes json --parseDependency --parseInternal
+          cp .target/swagger/swagger.json internal/docs/swagger.json
+          cp .target/swagger/swagger.json api/swagger.json
+
+      - name: Check swagger is up to date
+        run: |
+          if ! git diff --exit-code api/ internal/docs/swagger.json; then
+            echo "::error::OpenAPI spec is out of date. Run 'make swagger' and commit the result."
+            exit 1
+          fi
