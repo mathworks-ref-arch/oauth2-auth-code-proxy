@@ -91,30 +91,30 @@ func loadRedirectTemplate() *template.Template {
 }
 
 // @Summary		OAuth2 redirect callback
-// @Description	Receives authorization code and state from the OAuth2 provider,
+// @Description	Receives the authorization response from the OAuth2 provider,
 // @Description	then redirects the browser back to the desktop client's local HTTP listener.
+// @Description	If the user cancels or denies consent, the provider sends error (e.g. access_denied)
+// @Description	and state instead of code; these are forwarded to the client so it can fail immediately.
 // @Tags			oauth
 // @Produce		html
-// @Param			code	query		string	true	"Authorization code from OAuth2 provider"
-// @Param			state	query		string	true	"State containing appID and client redirect URL (format: appID-redirectURL)"
-// @Success		200		{string}	string				"HTML page that redirects the browser"
-// @Failure		200		{object}	domain.FaultResponse	"Fault on missing or invalid parameters"
+// @Param			code				query		string	false	"Authorization code from OAuth2 provider (required unless error is present)"
+// @Param			state				query		string	true	"State containing appID and client redirect URL (format: appID-redirectURL)"
+// @Param			error				query		string	false	"OAuth2 error code from provider, e.g. access_denied when consent is cancelled"
+// @Param			error_description	query		string	false	"Human-readable error description from provider"
+// @Success		200					{string}	string					"HTML page that redirects the browser"
+// @Failure		200					{object}	domain.FaultResponse	"Fault on missing or invalid parameters"
 // @Router			/redirect [get]
 func (h *handler) handleRedirect(w http.ResponseWriter, r *http.Request) {
-	code := r.URL.Query().Get("code")
-	state := r.URL.Query().Get("state")
+	query := r.URL.Query()
+	providerErr := query.Get("error")
 
-	if state == "" || code == "" {
-		domain.WriteFault(w, "StatusBadRequest", "state and code query params not found")
-		return
-	}
-
-	appID, stateURL, faultMsg := parseRedirectState(state)
+	appID, stateURL, faultMsg := parseCallback(query.Get("code"), query.Get("state"), providerErr)
 	if faultMsg != "" {
 		domain.WriteFault(w, "StatusBadRequest", faultMsg)
 		return
 	}
 
+	// The full query (code or error, plus state) is forwarded to the client listener.
 	newURL := *r.URL
 	newURL.Scheme = stateURL.Scheme
 	newURL.Host = stateURL.Host
@@ -128,11 +128,16 @@ func (h *handler) handleRedirect(w http.ResponseWriter, r *http.Request) {
 		title = app.Description
 	}
 
+	complete := p.Sprintf("Authentication complete. You may close this tab.")
+	if providerErr != "" {
+		complete = p.Sprintf("Sign-in was cancelled or did not complete. You may close this tab.")
+	}
+
 	data := redirectData{
 		URL:       template.URL(newURL.String()),
 		Lang:      tag.String(),
 		Title:     title,
-		Complete:  p.Sprintf("Authentication complete. You may close this tab."),
+		Complete:  complete,
 		ClickHere: p.Sprintf("Click here if not redirected automatically."),
 	}
 
@@ -141,6 +146,15 @@ func (h *handler) handleRedirect(w http.ResponseWriter, r *http.Request) {
 		"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; connect-src 'self'")
 	w.WriteHeader(http.StatusOK)
 	loadRedirectTemplate().Execute(w, data) //nolint:errcheck
+}
+
+// parseCallback requires a valid state so the browser can always be sent back to
+// the client, plus either an authorization code or a provider error.
+func parseCallback(code, state, providerErr string) (appID string, stateURL *url.URL, faultMsg string) {
+	if state == "" || (code == "" && providerErr == "") {
+		return "", nil, "state and code query params not found"
+	}
+	return parseRedirectState(state)
 }
 
 func parseRedirectState(state string) (appID string, stateURL *url.URL, faultMsg string) {

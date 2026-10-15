@@ -217,6 +217,66 @@ func TestMWLegacyHandler_Redirect(t *testing.T) {
 	r.Contains(w.Body.String(), "http://localhost:1234/cb")
 }
 
+func TestMWLegacyHandler_RedirectConsentCancelled(t *testing.T) {
+	r := require.New(t)
+	srv := newTestServer()
+
+	req := httptest.NewRequest(http.MethodGet,
+		"/oauth/v1/redirect?error=access_denied&error_description=User+cancelled&state=100-http://localhost:1234/cb", nil)
+	w := httptest.NewRecorder()
+	srv.MWLegacyHandler().ServeHTTP(w, req)
+
+	r.Equal(http.StatusOK, w.Code)
+	r.Contains(w.Header().Get("Content-Type"), "text/html")
+	body := w.Body.String()
+	r.Contains(body, "http://localhost:1234/cb?error=access_denied")
+	r.Contains(body, "error_description=User&#43;cancelled")
+	r.Contains(body, "Sign-in was cancelled or did not complete.")
+	r.NotContains(body, "Authentication complete.")
+}
+
+func TestMWLegacyHandler_RedirectErrorWithoutState(t *testing.T) {
+	r := require.New(t)
+	srv := newTestServer()
+
+	req := httptest.NewRequest(http.MethodGet, "/oauth/v1/redirect?error=access_denied", nil)
+	w := httptest.NewRecorder()
+	srv.MWLegacyHandler().ServeHTTP(w, req)
+
+	r.Equal(http.StatusOK, w.Code)
+	var resp map[string]any
+	r.NoError(json.Unmarshal(w.Body.Bytes(), &resp))
+	r.Equal("core/Fault", resp["mwtype"])
+}
+
+func TestMWLegacyHandler_RedirectErrorWithInvalidState(t *testing.T) {
+	r := require.New(t)
+	srv := newTestServer()
+
+	req := httptest.NewRequest(http.MethodGet, "/oauth/v1/redirect?error=access_denied&state=100-javascript:alert(1)", nil)
+	w := httptest.NewRecorder()
+	srv.MWLegacyHandler().ServeHTTP(w, req)
+
+	r.Equal(http.StatusOK, w.Code)
+	var resp map[string]any
+	r.NoError(json.Unmarshal(w.Body.Bytes(), &resp))
+	r.Equal("core/Fault", resp["mwtype"])
+}
+
+func TestMWLegacyHandler_RedirectMissingCodeAndError(t *testing.T) {
+	r := require.New(t)
+	srv := newTestServer()
+
+	req := httptest.NewRequest(http.MethodGet, "/oauth/v1/redirect?state=100-http://localhost:1234/cb", nil)
+	w := httptest.NewRecorder()
+	srv.MWLegacyHandler().ServeHTTP(w, req)
+
+	r.Equal(http.StatusOK, w.Code)
+	var resp map[string]any
+	r.NoError(json.Unmarshal(w.Body.Bytes(), &resp))
+	r.Equal("core/Fault", resp["mwtype"])
+}
+
 func TestMWLegacyHandler_Token(t *testing.T) {
 	r := require.New(t)
 	srv := newTestServer()

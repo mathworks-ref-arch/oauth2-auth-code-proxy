@@ -12,6 +12,11 @@
             "translation": "Authentification terminée. Vous pouvez fermer cet onglet."
         },
         {
+            "id": "Sign-in was cancelled or did not complete. You may close this tab.",
+            "message": "Sign-in was cancelled or did not complete. You may close this tab.",
+            "translation": "La connexion a été annulée ou n'a pas abouti. Vous pouvez fermer cet onglet."
+        },
+        {
             "id": "Click here if not redirected automatically.",
             "message": "Click here if not redirected automatically.",
             "translation": "Cliquez ici si vous n'êtes pas redirigé automatiquement."
