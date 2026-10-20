@@ -5,7 +5,7 @@ GROUP_ID ?=
 PKG      := $(MODULE)/internal/app
 LDFLAGS  := -X '$(PKG).Version=$(VERSION)' -X '$(PKG).BuildTime=$(BUILD_TS)' -X '$(PKG).ModuleName=$(MODULE)'
 
-.PHONY: all build test lint cyclo fmt mocks swagger licenses coverage coverage-html coverage-report clean docker i18n certs
+.PHONY: all build test lint cyclo fmt mocks swagger licenses coverage coverage-html coverage-report clean docker docker-local i18n certs
 
 all: fmt build test lint cyclo
 
@@ -47,13 +47,20 @@ coverage-report: test
 	@echo "Summary:"
 	@go tool cover -func=coverage.out | grep total:
 
-docker: certs
+docker:
 	docker build \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg BUILD_TIMESTAMP=$(BUILD_TS) \
 		--build-arg GROUP_ID=$(GROUP_ID) \
 		-t ghcr.io/mathworks-ref-arch/container-images/oauth2-auth-code-proxy:$(VERSION) \
 		-t ghcr.io/mathworks-ref-arch/container-images/oauth2-auth-code-proxy:latest .
+
+# Local-only image with creds.yaml and certs/ baked in. Never push it.
+docker-local: docker certs
+	@test -f creds.yaml || { echo "creds.yaml not found at repo root (see README \"Credentials File\")"; exit 1; }
+	docker build -f Dockerfile.local \
+		--build-arg BASE_IMAGE=ghcr.io/mathworks-ref-arch/container-images/oauth2-auth-code-proxy:$(VERSION) \
+		-t oauth2-auth-code-proxy-local:latest .
 
 licenses:
 	@go-licenses report . --include_tests 2>/dev/null | grep -v "$(shell go list -m)" | sort > /tmp/licenses.csv

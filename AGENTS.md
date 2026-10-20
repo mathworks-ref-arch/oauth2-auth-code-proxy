@@ -82,6 +82,7 @@ These require Go 1.26.3+ locally or can be run inside the builder container:
 ```bash
 make build          # produce oauth2-auth-code-proxy binary (requires Go 1.26.3+ locally)
 make docker         # build Docker image locally (recommended — bundles correct toolchain)
+make docker-local   # Dockerfile.local: creds.yaml + certs/ baked in, local use only (never push)
 make test           # go test -race with coverage
 make lint           # golangci-lint v2
 make mocks          # regenerate mockery mocks
