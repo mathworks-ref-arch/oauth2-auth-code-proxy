@@ -19,8 +19,6 @@ FROM scratch
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /oauth2-auth-code-proxy /oauth2-auth-code-proxy
-COPY certs/tls.crt /etc/oauth2-auth-code-proxy/tls.crt
-COPY certs/tls.key /etc/oauth2-auth-code-proxy/tls.key
 
 EXPOSE 80 30045
 

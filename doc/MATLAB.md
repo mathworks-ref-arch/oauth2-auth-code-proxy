@@ -17,9 +17,9 @@ Generate a local TLS certificate (one-time, idempotent):
 make certs
 ```
 
-This creates `certs/tls.crt` and `certs/tls.key` with SANs for `localhost` and `127.0.0.1`. The cert is gitignored but persists across rebuilds.
+This creates `certs/tls.crt` and `certs/tls.key` with SANs for `localhost` and `127.0.0.1`. The cert is gitignored and is not baked into the Docker image — mount it at runtime.
 
-Build and run the Docker image (the `docker` target depends on `certs`):
+Build and run the Docker image, mounting the cert directory:
 
 ```bash
 make docker
@@ -27,10 +27,19 @@ make docker
 docker run -d --name oauth2-proxy-test \
   -p 30045:30045 -p 80:80 \
   -v "$(pwd)/creds.yaml:/etc/oauth2-auth-code-proxy/creds.yaml:ro" \
+  -v "$(pwd)/certs:/etc/oauth2-auth-code-proxy/certs:ro" \
   -e OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \
-  -e OAUTH_TLS_CERT_FILE=/etc/oauth2-auth-code-proxy/tls.crt \
-  -e OAUTH_TLS_KEY_FILE=/etc/oauth2-auth-code-proxy/tls.key \
+  -e OAUTH_TLS_CERT_FILE=/etc/oauth2-auth-code-proxy/certs/tls.crt \
+  -e OAUTH_TLS_KEY_FILE=/etc/oauth2-auth-code-proxy/certs/tls.key \
   oauth2-auth-code-proxy:latest
+```
+
+Alternatively, `make docker-local` builds a local-only image (`Dockerfile.local`) with `creds.yaml` and `certs/` baked in, so no mounts or env vars are needed. It runs `make certs` automatically. That image contains your secrets, so never push it:
+
+```bash
+make docker-local
+
+docker run -d --name oauth2-proxy-test -p 30045:30045 -p 80:80 oauth2-auth-code-proxy-local:latest
 ```
 
 Connect from MATLAB using the local cert file:

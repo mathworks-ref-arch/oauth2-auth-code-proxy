@@ -1,0 +1,13 @@
+# Copyright 2024-2026 The MathWorks, Inc.
+# Local-only image: bakes creds.yaml and certs/ into the public image.
+# Contains secrets — never push this image. Build with `make docker-local`.
+ARG BASE_IMAGE=ghcr.io/mathworks-ref-arch/container-images/oauth2-auth-code-proxy:latest
+FROM ${BASE_IMAGE}
+
+COPY creds.yaml /etc/oauth2-auth-code-proxy/creds.yaml
+COPY certs/tls.crt /etc/oauth2-auth-code-proxy/certs/tls.crt
+COPY certs/tls.key /etc/oauth2-auth-code-proxy/certs/tls.key
+
+ENV OAUTH_CREDS_FILE=/etc/oauth2-auth-code-proxy/creds.yaml \
+    OAUTH_TLS_CERT_FILE=/etc/oauth2-auth-code-proxy/certs/tls.crt \
+    OAUTH_TLS_KEY_FILE=/etc/oauth2-auth-code-proxy/certs/tls.key

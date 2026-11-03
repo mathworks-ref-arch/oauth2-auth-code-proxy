@@ -57,7 +57,57 @@ The container listens on port 30045 by default (matching existing OAuth redirect
 docker build -t oauth2-auth-code-proxy .
 ```
 
-The Dockerfile is a self-contained multi-stage build: it compiles the Go binary from source and produces a minimal `scratch`-based image (~10 MB) containing only the static binary and CA certificates.
+The Dockerfile is a self-contained multi-stage build: it compiles the Go binary from source and produces a minimal `scratch`-based image (~10 MB) containing only the static binary and CA certificates. It contains no credentials or TLS certificates — provide those at runtime via mounts and environment variables.
+
+### Local Image with Your Own Credentials and Certs
+
+For local testing, `Dockerfile.local` builds on top of the public image and bakes in your `creds.yaml` and TLS certificate, so the container runs without mounts or environment variables.
+
+> **Warning:** this image contains your OAuth client secret and TLS private key. Never push or share it.
+
+Place the files at the repo root (both paths are gitignored):
+
+```
+oauth2-auth-code-proxy/
+├── creds.yaml        # OAuth app config (see Credentials File below)
+└── certs/
+    ├── tls.crt       # certificate (PEM)
+    └── tls.key       # private key (PEM)
+```
+
+To use your own certificate, copy it in under exactly these names; its SANs must match the hostname clients connect to. If `certs/` is absent, `make docker-local` generates a self-signed certificate for `localhost` and `127.0.0.1`.
+
+Build and run:
+
+```bash
+make docker-local
+
+docker run -d --name oauth2-proxy -p 80:80 oauth2-auth-code-proxy-local:latest
+```
+
+Without `make`, build the public image first, then the local image on top of it:
+
+```bash
+docker build -t oauth2-auth-code-proxy:base .
+
+docker build -f Dockerfile.local \
+  --build-arg BASE_IMAGE=oauth2-auth-code-proxy:base \
+  -t oauth2-auth-code-proxy-local:latest .
+```
+
+To skip compiling, set `BASE_IMAGE` to a published release instead, e.g. `ghcr.io/mathworks-ref-arch/container-images/oauth2-auth-code-proxy:<version>`.
+
+To generate a self-signed certificate without `make` (in Git Bash, prefix the command with `MSYS_NO_PATHCONV=1`):
+
+```bash
+mkdir -p certs
+openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 \
+  -keyout certs/tls.key -out certs/tls.crt -days 3650 -nodes \
+  -subj "/CN=oauth2-auth-code-proxy" \
+  -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
+```
+
+Rebuild the image whenever `creds.yaml` or the certificate changes.
 
 ### Standalone Binary
 
@@ -351,6 +401,7 @@ make swagger         # regenerate OpenAPI 3.1 spec
 make mocks           # regenerate mockery mocks
 make coverage-html   # generate coverage.html
 make docker          # build container image locally
+make docker-local    # local-only image with creds.yaml + certs/ baked in (never push)
 make fmt             # format code
 make clean           # remove build artifacts
 ```
