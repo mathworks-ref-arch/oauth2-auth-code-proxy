@@ -62,6 +62,8 @@ if timedOut
     authCode = "";
     authState = "";
     authScope = "";
+    authError = "";
+    authErrorDesc = "";
     for i = 1:numel(queryParams)
         if queryParams(i).Name == "code"
             authCode = string(queryParams(i).Value);
@@ -69,6 +71,10 @@ if timedOut
             authState = string(queryParams(i).Value);
         elseif queryParams(i).Name == "scope"
             authScope = string(queryParams(i).Value);
+        elseif queryParams(i).Name == "error"
+            authError = string(queryParams(i).Value);
+        elseif queryParams(i).Name == "error_description"
+            authErrorDesc = urldecode(string(queryParams(i).Value));
         end
     end
 else
@@ -76,11 +82,11 @@ else
     pause(0.5);
     rawRequest = read(server, server.NumBytesAvailable, "string");
 
-    % Send a minimal HTTP response so the browser shows success
+    % Send a minimal HTTP response so the browser tab can be closed
     httpResponse = "HTTP/1.1 200 OK" + newline + ...
         "Content-Type: text/html" + newline + ...
         "Connection: close" + newline + newline + ...
-        "<html><body><h3>Authentication complete. You may close this tab.</h3></body></html>";
+        "<html><body><h3>You may close this tab.</h3></body></html>";
     write(server, uint8(char(httpResponse)));
     pause(0.2);
     delete(server);
@@ -93,6 +99,8 @@ else
     authCode = "";
     authState = "";
     authScope = "";
+    authError = "";
+    authErrorDesc = "";
     for i = 1:numel(queryParams)
         if queryParams(i).Name == "code"
             authCode = string(queryParams(i).Value);
@@ -100,10 +108,21 @@ else
             authState = string(queryParams(i).Value);
         elseif queryParams(i).Name == "scope"
             authScope = string(queryParams(i).Value);
+        elseif queryParams(i).Name == "error"
+            authError = string(queryParams(i).Value);
+        elseif queryParams(i).Name == "error_description"
+            authErrorDesc = urldecode(string(queryParams(i).Value));
         end
     end
 end
 
+% The proxy forwards provider errors (e.g. access_denied when the user
+% cancels consent) instead of a code
+if authError == "access_denied"
+    error("Sign-in was cancelled or consent was not granted. %s", authErrorDesc);
+elseif authError ~= ""
+    error("Authorization failed (%s). %s", authError, authErrorDesc);
+end
 if authCode == ""
     error("No authorization code found in callback.");
 end

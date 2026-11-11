@@ -16,6 +16,13 @@
             "fuzzy": true
         },
         {
+            "id": "Sign-in was cancelled or did not complete. You may close this tab.",
+            "message": "Sign-in was cancelled or did not complete. You may close this tab.",
+            "translation": "Sign-in was cancelled or did not complete. You may close this tab.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Click here if not redirected automatically.",
             "message": "Click here if not redirected automatically.",
             "translation": "Click here if not redirected automatically.",

@@ -40,24 +40,30 @@ func init() {
 
 var messageKeyToIndex = map[string]int{
 	"Authentication complete. You may close this tab.": 1,
-	"Click here if not redirected automatically.":      2,
+	"Click here if not redirected automatically.":      3,
 	"OAuth2 Redirect": 0,
+	"Sign-in was cancelled or did not complete. You may close this tab.": 2,
 }
 
-var en_USIndex = []uint32{ // 4 elements
-	0x00000000, 0x00000010, 0x00000041, 0x0000006d,
-} // Size: 40 bytes
+var en_USIndex = []uint32{ // 5 elements
+	0x00000000, 0x00000010, 0x00000041, 0x00000084,
+	0x000000b0,
+} // Size: 44 bytes
 
-const en_USData string = "" + // Size: 109 bytes
+const en_USData string = "" + // Size: 176 bytes
 	"\x02OAuth2 Redirect\x02Authentication complete. You may close this tab." +
+	"\x02Sign-in was cancelled or did not complete. You may close this tab." +
 	"\x02Click here if not redirected automatically."
 
-var fr_FRIndex = []uint32{ // 4 elements
-	0x00000000, 0x00000013, 0x0000004e, 0x00000089,
-} // Size: 40 bytes
+var fr_FRIndex = []uint32{ // 5 elements
+	0x00000000, 0x00000013, 0x0000004e, 0x0000009e,
+	0x000000d9,
+} // Size: 44 bytes
 
-const fr_FRData string = "" + // Size: 137 bytes
+const fr_FRData string = "" + // Size: 217 bytes
 	"\x02Redirection OAuth2\x02Authentification terminée. Vous pouvez fermer " +
-	"cet onglet.\x02Cliquez ici si vous n'êtes pas redirigé automatiquement."
+	"cet onglet.\x02La connexion a été annulée ou n'a pas abouti. Vous pouvez" +
+	" fermer cet onglet.\x02Cliquez ici si vous n'êtes pas redirigé automatiq" +
+	"uement."
 
-	// Total table size 326 bytes (0KiB); checksum: C8AD52D0
+	// Total table size 481 bytes (0KiB); checksum: 9CCE937B

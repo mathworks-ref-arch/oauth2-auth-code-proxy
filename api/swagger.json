@@ -535,13 +535,12 @@
         },
         "/redirect": {
             "get": {
-                "description": "Receives authorization code and state from the OAuth2 provider,\nthen redirects the browser back to the desktop client's local HTTP listener.",
+                "description": "Receives the authorization response from the OAuth2 provider,\nthen redirects the browser back to the desktop client's local HTTP listener.\nIf the user cancels or denies consent, the provider sends error (e.g. access_denied)\nand state instead of code; these are forwarded to the client so it can fail immediately.",
                 "parameters": [
                     {
-                        "description": "Authorization code from OAuth2 provider",
+                        "description": "Authorization code from OAuth2 provider (required unless error is present)",
                         "in": "query",
                         "name": "code",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -551,6 +550,22 @@
                         "in": "query",
                         "name": "state",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "OAuth2 error code from provider, e.g. access_denied when consent is cancelled",
+                        "in": "query",
+                        "name": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Human-readable error description from provider",
+                        "in": "query",
+                        "name": "error_description",
                         "schema": {
                             "type": "string"
                         }
