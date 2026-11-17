@@ -3,6 +3,9 @@
 package proxy
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -129,25 +132,56 @@ func TestLoadApps_MissingFile(t *testing.T) {
 	r.Contains(err.Error(), "read creds file")
 }
 
-func TestValidateApps_NoDashes(t *testing.T) {
-	r := require.New(t)
-
-	apps := map[string]AppConfig{
-		"bad-id": {ID: "bad-id"},
-	}
-	err := validateApps(apps)
-	r.Error(err)
+func requireValidAppID(t *testing.T, id string) {
+	t.Helper()
+	apps := map[string]AppConfig{id: fullTestApp(id)}
+	require.NoError(t, validateApps(apps), "expected app id %q to be accepted", id)
 }
 
-func TestValidateApps_RequiresID100(t *testing.T) {
+func requireInvalidAppID(t *testing.T, id string) {
+	t.Helper()
+	apps := map[string]AppConfig{id: fullTestApp(id)}
+	err := validateApps(apps)
+	require.Error(t, err, "expected app id %q to be rejected", id)
+	require.Contains(t, err.Error(), appIDPattern.String())
+}
+
+func TestValidateApps_AcceptsAllowedAppIDs(t *testing.T) {
+	requireValidAppID(t, "100")            // pure numeric, the historical default
+	requireValidAppID(t, "0")              // single character
+	requireValidAppID(t, "sheets_read")    // README example
+	requireValidAppID(t, "onedrive.v2")    // README example
+	requireValidAppID(t, "Sheets_read.v2") // mixed case with every allowed symbol
+	requireValidAppID(t, "_.")             // symbols only
+}
+
+func TestValidateApps_RejectsDisallowedAppIDs(t *testing.T) {
+	requireInvalidAppID(t, "my-app")      // hyphen breaks the {appID}-{redirectURL} state format
+	requireInvalidAppID(t, "-100")        // leading hyphen
+	requireInvalidAppID(t, "sheets read") // space
+	requireInvalidAppID(t, " 100")        // leading whitespace
+	requireInvalidAppID(t, "100\n")       // trailing newline
+	requireInvalidAppID(t, "sheets/read") // slash
+	requireInvalidAppID(t, "sheets!")     // punctuation outside the allowed set
+	requireInvalidAppID(t, "a&b=c")       // URL query delimiters
+	requireInvalidAppID(t, "café")        // non-ASCII letter
+}
+
+func TestLoadApps_UnquotedNumericID(t *testing.T) {
 	r := require.New(t)
 
-	apps := map[string]AppConfig{
-		"200": fullTestApp("200"),
-	}
-	err := validateApps(apps)
-	r.Error(err)
-	r.Contains(err.Error(), "id '100'")
+	orig, err := os.ReadFile("testdata/creds.yaml")
+	r.NoError(err)
+	content := strings.Replace(string(orig), `id: "100"`, "id: 4217", 1)
+	r.NotEqual(string(orig), content)
+
+	path := filepath.Join(t.TempDir(), "creds.yaml")
+	r.NoError(os.WriteFile(path, []byte(content), 0o600))
+
+	apps, err := LoadApps(path, zap.NewNop())
+	r.NoError(err)
+	r.Contains(apps, "4217")
+	r.Equal("4217", apps["4217"].ID)
 }
 
 func TestValidateApps_RequiresEmailScope(t *testing.T) {

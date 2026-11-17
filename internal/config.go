@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 	"reflect"
+	"regexp"
 	"slices"
 	"strings"
 	"time"
@@ -166,17 +167,19 @@ func LoadApps(filePath string, logger *zap.Logger) (map[string]AppConfig, error)
 	return apps, nil
 }
 
+// appIDPattern restricts app IDs to letters, digits, '_' and '.'. Hyphens are
+// excluded because the OAuth state format ({appID}-{redirectURL}) is split on
+// the first hyphen.
+var appIDPattern = regexp.MustCompile(`^[A-Za-z0-9_.]+$`)
+
 func validateApps(apps map[string]AppConfig) error {
 	if len(apps) != 1 {
 		return fmt.Errorf("exactly one app must be defined in creds.yaml, got %d", len(apps))
 	}
-	if _, ok := apps["100"]; !ok {
-		return fmt.Errorf("app with id '100' must be defined in creds.yaml")
-	}
 
 	for _, app := range apps {
-		if strings.Contains(app.ID, "-") {
-			return fmt.Errorf("app id cannot contain hyphens: %s", app.ID)
+		if !appIDPattern.MatchString(app.ID) {
+			return fmt.Errorf("app id %q must match %s", app.ID, appIDPattern)
 		}
 
 		if err := validateAppFields(app); err != nil {

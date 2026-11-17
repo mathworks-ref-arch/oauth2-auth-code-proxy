@@ -317,7 +317,7 @@ The page renders localized text (based on `Accept-Language`) and includes a Java
 
 ### Behavioral Notes
 
-**State parameter format:** The state value is `{appID}-{redirectURL}`. It is split on the first hyphen, so app IDs must not contain hyphens. The desktop client receives this state from the OAuth provider callback and passes it back to `/v1/token`.
+**State parameter format:** The state value is `{appID}-{redirectURL}`. It is split on the first hyphen; app IDs are restricted to `[A-Za-z0-9_.]`, so they never contain hyphens. The desktop client receives this state from the OAuth provider callback and passes it back to `/v1/token`.
 
 **Scope validation:** Token exchange verifies that all scopes configured in `creds.yaml` are present in the provider's response. If the provider returns fewer scopes (e.g., user denied a permission), the exchange fails with an error listing the missing scopes.
 
@@ -428,7 +428,7 @@ idTokenEmailKey: "email"
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `id` | Yes | App identifier (must be "100") |
+| `id` | Yes | App identifier — letters, digits, `_` and `.` only (e.g. `"100"`, `"sheets_read"`); no hyphens |
 | `type` | Yes | App type label (e.g., "sheets", "onedrive") |
 | `clientId` | Yes | OAuth2 client ID |
 | `clientSecret` | Yes | OAuth2 client secret (kept server-side) |
@@ -448,7 +448,7 @@ idTokenEmailKey: "email"
 | `idTokenNameKey` | No | JWT claim key for name (fallback if userinfo unavailable) |
 | `idTokenEmailKey` | No | JWT claim key for email (fallback if userinfo unavailable) |
 
-Currently only a single app configuration (ID "100") is supported per instance.
+Currently only a single app configuration is supported per instance. Its `id` may contain letters, digits, `_` and `.`.
 
 ## 7. Security Model
 
