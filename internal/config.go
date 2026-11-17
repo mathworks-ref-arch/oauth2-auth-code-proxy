@@ -170,13 +170,10 @@ func validateApps(apps map[string]AppConfig) error {
 	if len(apps) != 1 {
 		return fmt.Errorf("exactly one app must be defined in creds.yaml, got %d", len(apps))
 	}
-	if _, ok := apps["100"]; !ok {
-		return fmt.Errorf("app with id '100' must be defined in creds.yaml")
-	}
 
 	for _, app := range apps {
-		if strings.Contains(app.ID, "-") {
-			return fmt.Errorf("app id cannot contain hyphens: %s", app.ID)
+		if !isValidAppID(app.ID) {
+			return fmt.Errorf("app id must contain only letters, digits, '_' or '.': %q", app.ID)
 		}
 
 		if err := validateAppFields(app); err != nil {
@@ -189,6 +186,23 @@ func validateApps(apps map[string]AppConfig) error {
 	}
 
 	return nil
+}
+
+// isValidAppID reports whether id is a non-empty string matching
+// [A-Za-z0-9_.]+. Hyphens are excluded because the OAuth state format
+// ({appID}-{redirectURL}) is split on the first hyphen.
+func isValidAppID(id string) bool {
+	if id == "" {
+		return false
+	}
+	for _, c := range id {
+		switch {
+		case c >= 'a' && c <= 'z', c >= 'A' && c <= 'Z', c >= '0' && c <= '9', c == '_', c == '.':
+		default:
+			return false
+		}
+	}
+	return true
 }
 
 func validateAppFields(app AppConfig) error {

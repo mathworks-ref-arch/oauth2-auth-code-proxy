@@ -168,6 +168,8 @@ idTokenNameKey: "name"
 idTokenEmailKey: "email"
 ```
 
+The `id` may contain only letters, digits, `_` and `.` (e.g. `"100"`, `"sheets_read"`, `"onedrive.v2"`). Hyphens are not allowed because the OAuth `state` parameter uses `-` as a separator. Clients discover the id via the app list endpoint and pass it back on authorize/token/refresh requests.
+
 #### User Identity Keys
 
 After a successful token exchange, the proxy calls `testingUrl` to verify the token works and retrieve the user's identity. The four key fields tell the proxy where to find the user's name and email in the provider's response:
