@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 	"reflect"
+	"regexp"
 	"slices"
 	"strings"
 	"time"
@@ -166,14 +167,19 @@ func LoadApps(filePath string, logger *zap.Logger) (map[string]AppConfig, error)
 	return apps, nil
 }
 
+// appIDPattern restricts app IDs to letters, digits, '_' and '.'. Hyphens are
+// excluded because the OAuth state format ({appID}-{redirectURL}) is split on
+// the first hyphen.
+var appIDPattern = regexp.MustCompile(`^[A-Za-z0-9_.]+$`)
+
 func validateApps(apps map[string]AppConfig) error {
 	if len(apps) != 1 {
 		return fmt.Errorf("exactly one app must be defined in creds.yaml, got %d", len(apps))
 	}
 
 	for _, app := range apps {
-		if !isValidAppID(app.ID) {
-			return fmt.Errorf("app id must contain only letters, digits, '_' or '.': %q", app.ID)
+		if !appIDPattern.MatchString(app.ID) {
+			return fmt.Errorf("app id %q must match %s", app.ID, appIDPattern)
 		}
 
 		if err := validateAppFields(app); err != nil {
@@ -186,23 +192,6 @@ func validateApps(apps map[string]AppConfig) error {
 	}
 
 	return nil
-}
-
-// isValidAppID reports whether id is a non-empty string matching
-// [A-Za-z0-9_.]+. Hyphens are excluded because the OAuth state format
-// ({appID}-{redirectURL}) is split on the first hyphen.
-func isValidAppID(id string) bool {
-	if id == "" {
-		return false
-	}
-	for _, c := range id {
-		switch {
-		case c >= 'a' && c <= 'z', c >= 'A' && c <= 'Z', c >= '0' && c <= '9', c == '_', c == '.':
-		default:
-			return false
-		}
-	}
-	return true
 }
 
 func validateAppFields(app AppConfig) error {

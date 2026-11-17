@@ -132,51 +132,39 @@ func TestLoadApps_MissingFile(t *testing.T) {
 	r.Contains(err.Error(), "read creds file")
 }
 
-func TestValidateApps_NoDashes(t *testing.T) {
-	r := require.New(t)
-
-	apps := map[string]AppConfig{
-		"bad-id": {ID: "bad-id"},
-	}
-	err := validateApps(apps)
-	r.Error(err)
-}
-
-func TestValidateApps_AcceptsArbitraryNumericID(t *testing.T) {
-	r := require.New(t)
-
-	apps := map[string]AppConfig{
-		"4217": fullTestApp("4217"),
-	}
-	r.NoError(validateApps(apps))
-}
-
-func TestValidateApps_AcceptsAlphanumericUnderscoreDotID(t *testing.T) {
-	r := require.New(t)
-
-	id := "Sheets_read.v2"
+func requireValidAppID(t *testing.T, id string) {
+	t.Helper()
 	apps := map[string]AppConfig{id: fullTestApp(id)}
-	r.NoError(validateApps(apps))
+	require.NoError(t, validateApps(apps), "expected app id %q to be accepted", id)
 }
 
-func TestValidateApps_RejectsSpaceInID(t *testing.T) {
-	r := require.New(t)
-
-	id := "sheets read"
+func requireInvalidAppID(t *testing.T, id string) {
+	t.Helper()
 	apps := map[string]AppConfig{id: fullTestApp(id)}
 	err := validateApps(apps)
-	r.Error(err)
-	r.Contains(err.Error(), "letters, digits")
+	require.Error(t, err, "expected app id %q to be rejected", id)
+	require.Contains(t, err.Error(), appIDPattern.String())
 }
 
-func TestValidateApps_RejectsNonASCIIID(t *testing.T) {
-	r := require.New(t)
+func TestValidateApps_AcceptsAllowedAppIDs(t *testing.T) {
+	requireValidAppID(t, "100")            // pure numeric, the historical default
+	requireValidAppID(t, "0")              // single character
+	requireValidAppID(t, "sheets_read")    // README example
+	requireValidAppID(t, "onedrive.v2")    // README example
+	requireValidAppID(t, "Sheets_read.v2") // mixed case with every allowed symbol
+	requireValidAppID(t, "_.")             // symbols only
+}
 
-	id := "café"
-	apps := map[string]AppConfig{id: fullTestApp(id)}
-	err := validateApps(apps)
-	r.Error(err)
-	r.Contains(err.Error(), "letters, digits")
+func TestValidateApps_RejectsDisallowedAppIDs(t *testing.T) {
+	requireInvalidAppID(t, "my-app")      // hyphen breaks the {appID}-{redirectURL} state format
+	requireInvalidAppID(t, "-100")        // leading hyphen
+	requireInvalidAppID(t, "sheets read") // space
+	requireInvalidAppID(t, " 100")        // leading whitespace
+	requireInvalidAppID(t, "100\n")       // trailing newline
+	requireInvalidAppID(t, "sheets/read") // slash
+	requireInvalidAppID(t, "sheets!")     // punctuation outside the allowed set
+	requireInvalidAppID(t, "a&b=c")       // URL query delimiters
+	requireInvalidAppID(t, "café")        // non-ASCII letter
 }
 
 func TestLoadApps_UnquotedNumericID(t *testing.T) {
